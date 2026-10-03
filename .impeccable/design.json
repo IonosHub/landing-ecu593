@@ -378,9 +378,9 @@
         "purpose": "Entrada de cada sello, escalonada con --stamp-delay."
       },
       {
-        "name": "page-turn",
-        "value": "perspective(1600px) rotateY(-24deg) desde el lomo izquierdo, clip-path que se abre, 1100ms",
-        "purpose": "Entrada de hojas con data-anim=\"page-turn\" (GSAP ScrollTrigger)."
+        "name": "settle",
+        "value": "autoAlpha 0 → 1, y 36px → 0, scale 0.985 → 1, 1200ms power2.out",
+        "purpose": "Entrada suave de tarjetas con data-anim=\"settle\": fundido + subida corta, sin giro (GSAP ScrollTrigger)."
       },
       {
         "name": "ticket-press",

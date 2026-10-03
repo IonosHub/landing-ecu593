@@ -307,7 +307,7 @@ Marcador de dato desconocido: borde discontinuo de 1.5px en `flame`, fondo `flam
 ### Motion
 Coreografía con GSAP (`src/scripts/motion.ts`, ScrollTrigger + SplitText), activada solo dentro de `gsap.matchMedia('(prefers-reduced-motion: no-preference)')`, que agrega la clase `.gsap-on` a `<html>`. Sin JavaScript o con movimiento reducido todo queda impreso y estático.
 - **Apertura del pasaporte** (hero): la portada azul con emblema dorado (`[data-book-cover]`) gira 180° sobre el lomo mientras el libro se desplaza a su sitio; luego aparecen los campos de la página de datos, el titular palabra por palabra y los tres sellos. En móvil la portada se levanta (rotateY −100°). La portada se mantiene opaca durante el giro: opacidad < 1 aplana el 3D.
-- **Giro de página** (`data-anim="page-turn"`: visas, hoja de valores, formulario): entran girando desde su borde izquierdo (`rotationY −26°`, perspectiva 1600px).
+- **Asentado de tarjetas** (`data-anim="settle"`: visas, hoja de valores, formulario): aparecen con un fundido y una subida corta (36px, escala 0.985 → 1, 1.2s power2.out), sin giro. El movimiento acompaña; no compite con el contenido.
 - **Golpe de sello** (`[data-stamp]`): aparece grande y desenfocado y asienta en su rotación impresa (power4.out, 0.55s).
 - **Ruta de niveles**: cada nivel se sella al entrar y el contador `n/12` y la barra tricolor lo siguen.
 - Revelados discretos: filas (`data-anim="row"`), ventanas de foto (recorte de abajo hacia arriba) y el titular de cierre.

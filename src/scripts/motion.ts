@@ -5,7 +5,7 @@
  * Hooks (data attributes set in the components):
  *   [data-hero] [data-spread] [data-pitch] [data-data-page] [data-book-cover]  passport opening
  *   [data-hero-title] [data-hero-line] [data-doc-line]                         hero text
- *   [data-stamp]               rubber stamp thump        [data-anim="page-turn"]  document swings in
+ *   [data-stamp]               rubber stamp thump        [data-anim="settle"]  card eases into place
  *   [data-level] [data-counter] level path + counter     [data-anim="row"|"window"]  quieter reveals
  *   [data-closing-title] [data-fab]
  */
@@ -79,17 +79,16 @@ function openPassport(desktop: boolean) {
     .set(cover, { display: 'none' });
 }
 
-function pageTurns() {
-  $$('[data-anim="page-turn"]').forEach((sheet) => {
-    gsap.from(sheet, {
-      rotationY: -26,
-      x: -50,
+/** Cards (visas, fee sheet, form) settle softly into place: a short rise and fade, no rotation. */
+function settleCards() {
+  $$('[data-anim="settle"]').forEach((card) => {
+    gsap.from(card, {
       autoAlpha: 0,
-      transformPerspective: 1600,
-      transformOrigin: 'left center',
-      duration: 1.1,
-      ease: 'power3.out',
-      scrollTrigger: onceInView(sheet, 'top 88%'),
+      y: 36,
+      scale: 0.985,
+      duration: 1.2,
+      ease: 'power2.out',
+      scrollTrigger: onceInView(card, 'top 90%'),
     });
   });
 }
@@ -99,7 +98,7 @@ function sectionStamps() {
   $$('[data-stamp]')
     .filter((stamp) => !stamp.closest('[data-hero], [data-level]'))
     .forEach((stamp) => {
-      thump(stamp, { delay: stamp.closest('[data-anim="page-turn"]') ? 0.55 : 0.1, scrollTrigger: onceInView(stamp, 'top 85%') });
+      thump(stamp, { delay: stamp.closest('[data-anim="settle"]') ? 0.5 : 0.1, scrollTrigger: onceInView(stamp, 'top 85%') });
     });
 }
 
@@ -140,7 +139,7 @@ function quietReveals() {
   });
 
   $$('[data-anim="window"]')
-    .filter((frame) => !frame.closest('[data-anim="page-turn"]'))
+    .filter((frame) => !frame.closest('[data-anim="settle"]'))
     .forEach((frame) => {
       gsap.from(frame, {
         clipPath: 'inset(0% 0% 100% 0% round 10px)',
@@ -170,7 +169,7 @@ mm.add(
 
     root.classList.add('gsap-on');
     openPassport(desktop);
-    pageTurns();
+    settleCards();
     sectionStamps();
     levelPath();
     quietReveals();
