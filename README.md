@@ -1,43 +1,39 @@
-# Astro Starter Kit: Minimal
+# Landing Ecu593 English
+
+Landing de ventas de los cursos de inglés de **Ecu593 English**, hecha con Astro (sitio estático, CSS propio, sin framework de UI).
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+cp .env.example .env   # completa PUBLIC_API_URL y PUBLIC_SITE_URL
+npm run dev            # http://localhost:4321, con los "Dato pendiente" visibles
+npm run build          # genera dist/
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Estructura
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/
+  config/site.ts        Marca y contacto: único lugar para nombre, WhatsApp, redes, dirección
+  data/                 Contenido tipado (programas, método, modalidades, FAQ, valores, testimonios)
+  lib/                  pending() para datos faltantes, WhatsApp y cliente de leads
+  components/ui/        Primitivas del mundo pasaporte: Stamp, PhotoWindow, Mrz, Button, Icon, Value
+  components/sections/  Una sección de la página por archivo; solo leen de data/ y config/
+  layouts/              <head>, SEO, filtro de tinta compartido por los sellos
+  scripts/              Animaciones de scroll (reveal.ts) y formulario (lead-form.ts)
+  styles/               tokens.css (colores, tipografía, espacios, motion) y global.css
+public/
+  imgs/                 Logo
+  patterns/             Patrones guilloché en SVG (fondo de "papel de seguridad")
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- **Cambiar textos o datos:** edita `src/data/*` o `src/config/site.ts`, sin tocar el markup.
+- **Datos que faltan:** se escriben como `pending('qué falta')`. La lista completa está en [PENDIENTES.md](PENDIENTES.md).
+- **Fotos:** cada `image` en `src/data` acepta `src`. Sin `src` se muestra una ventana vacía con la descripción de la foto que va ahí.
+- **Formulario:** envía a `POST {PUBLIC_API_URL}/v1/leads/register` del sistema Ecu593, y el lead aparece en el pipeline de secretaría. Si falla, ofrece enviar la solicitud por WhatsApp.
+- **Animaciones:** solo corren si el usuario no pidió movimiento reducido. Sin JavaScript todo el contenido sigue visible.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Diseño
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Contexto de producto: [PRODUCT.md](PRODUCT.md)
+- Sistema visual: `DESIGN.md`

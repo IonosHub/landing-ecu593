@@ -1,0 +1,33 @@
+---
+/** Machine-readable zone: two 44-character lines padded with "<", as on a real passport. */
+interface Props {
+  lines: [string, string];
+  class?: string;
+}
+
+const MRZ_LENGTH = 44;
+const { lines, class: className } = Astro.props;
+const padded = lines.map((line) =>
+  line.toUpperCase().replace(/\s/g, '<').padEnd(MRZ_LENGTH, '<').slice(0, MRZ_LENGTH),
+);
+---
+
+<div class:list={['mrz', className]} aria-hidden="true">
+  {padded.map((line) => <span>{line}</span>)}
+</div>
+
+<style>
+  .mrz {
+    display: grid;
+    font-family: var(--font-data);
+    font-size: clamp(0.5rem, 0.32rem + 0.62vw, 0.78rem);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    line-height: 1.7;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 0;
+    max-width: 100%;
+  }
+</style>

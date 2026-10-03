@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+
+/** Stamped-ticket link button (styles in styles/buttons.css). `primary` is the enrolment action. */
+interface Props {
+  href: string;
+  variant?: 'primary' | 'whatsapp' | 'ghost';
+  icon?: 'whatsapp' | 'arrow-right' | 'arrow-down';
+  external?: boolean;
+  class?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const { href, variant = 'primary', icon, external = false, class: className, ...rest } = Astro.props;
+const resolvedIcon = icon ?? (variant === 'whatsapp' ? 'whatsapp' : 'arrow-right');
+---
+
+<a
+  href={href}
+  class:list={['btn', `btn-${variant}`, className]}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+  {...rest}
+>
+  {variant === 'whatsapp' && <Icon name="whatsapp" size={18} />}
+  <span><slot /></span>
+  {variant !== 'whatsapp' && <Icon name={resolvedIcon} size={18} class="btn-arrow" />}
+</a>

@@ -1,0 +1,150 @@
+---
+/**
+ * Rubber stamp, the world's primary mark. `data-stamp` makes it thump in when it
+ * scrolls into view (see scripts/reveal.ts); without JS or with reduced motion it
+ * is simply printed.
+ */
+interface Props {
+  shape?: 'circle' | 'rect';
+  ink?: 'flame' | 'sky' | 'violet' | 'navy';
+  /** Circle: text around the top arc. Rect: small line above the main text. */
+  top?: string;
+  main: string;
+  /** Circle: text around the bottom arc. Rect: small line below the main text. */
+  bottom?: string;
+  rotate?: number;
+  size?: string;
+  animate?: boolean;
+  class?: string;
+}
+
+const {
+  shape = 'circle',
+  ink = 'flame',
+  top,
+  main,
+  bottom,
+  rotate = -8,
+  size = shape === 'circle' ? '9rem' : '13rem',
+  animate = true,
+  class: className,
+} = Astro.props;
+
+const uid = `s${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<span
+  class:list={['stamp', `ink-${ink}`, `shape-${shape}`, className]}
+  style={`--rotate:${rotate}deg; --size:${size}`}
+  data-stamp={animate ? '' : undefined}
+  aria-hidden="true"
+>
+  {
+    shape === 'circle' ? (
+      <svg viewBox="0 0 200 200" fill="none">
+        <defs>
+          <path id={`${uid}-top`} d="M 30 100 A 70 70 0 0 1 170 100" />
+          <path id={`${uid}-bottom`} d="M 24 100 A 76 76 0 0 0 176 100" />
+        </defs>
+        <g filter="url(#ink-rough)">
+          <circle cx="100" cy="100" r="94" stroke="currentColor" stroke-width="5" />
+          <circle cx="100" cy="100" r="86" stroke="currentColor" stroke-width="1.5" />
+          <circle cx="100" cy="100" r="52" stroke="currentColor" stroke-width="2" />
+          {top && (
+            <text class="arc" fill="currentColor">
+              <textPath href={`#${uid}-top`} startOffset="50%" text-anchor="middle">
+                {top}
+              </textPath>
+            </text>
+          )}
+          {bottom && (
+            <text class="arc" fill="currentColor">
+              <textPath href={`#${uid}-bottom`} startOffset="50%" text-anchor="middle">
+                {bottom}
+              </textPath>
+            </text>
+          )}
+          <circle cx="22" cy="100" r="3" fill="currentColor" />
+          <circle cx="178" cy="100" r="3" fill="currentColor" />
+          <text class:list={['main', { short: main.length <= 3 }]} x="100" y="100" fill="currentColor" text-anchor="middle" dominant-baseline="central">
+            {main}
+          </text>
+        </g>
+      </svg>
+    ) : (
+      <svg viewBox="0 0 260 120" fill="none">
+        <g filter="url(#ink-rough)">
+          <rect x="4" y="4" width="252" height="112" rx="10" stroke="currentColor" stroke-width="5" />
+          <rect x="13" y="13" width="234" height="94" rx="5" stroke="currentColor" stroke-width="1.5" />
+          {top && (
+            <text class="line" x="130" y="36" fill="currentColor" text-anchor="middle">
+              {top}
+            </text>
+          )}
+          <text class="main" x="130" y={top || bottom ? 66 : 60} fill="currentColor" text-anchor="middle" dominant-baseline="central">
+            {main}
+          </text>
+          {bottom && (
+            <text class="line" x="130" y="96" fill="currentColor" text-anchor="middle">
+              {bottom}
+            </text>
+          )}
+        </g>
+      </svg>
+    )
+  }
+</span>
+
+<style>
+  .stamp {
+    display: inline-block;
+    width: var(--size);
+    transform: rotate(var(--rotate));
+    mix-blend-mode: multiply;
+    opacity: 0.88;
+    pointer-events: none;
+  }
+  .ink-flame { color: var(--flame); }
+  .ink-sky { color: var(--sky); }
+  .ink-violet { color: var(--violet); }
+  .ink-navy { color: var(--navy-800); }
+
+  text {
+    font-family: var(--font-display);
+    font-stretch: 75%;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .arc { font-size: 15px; letter-spacing: 0.14em; }
+  .line { font-size: 15px; letter-spacing: 0.12em; }
+  .shape-circle .main { font-size: 30px; letter-spacing: 0.02em; }
+  .shape-circle .main.short { font-size: 50px; }
+  .shape-rect .main { font-size: 40px; letter-spacing: 0.04em; }
+
+  :global(.motion-ok) [data-stamp] {
+    opacity: 0;
+    transform: rotate(calc(var(--rotate) + 10deg)) scale(1.7);
+    filter: blur(3px);
+  }
+  :global(.motion-ok) [data-stamp].is-inked {
+    animation: thump 520ms var(--ease-thump) var(--stamp-delay, 0ms) forwards;
+  }
+
+  @keyframes thump {
+    0% {
+      opacity: 0;
+      transform: rotate(calc(var(--rotate) + 10deg)) scale(1.7);
+      filter: blur(3px);
+    }
+    55% {
+      opacity: 0.95;
+      transform: rotate(var(--rotate)) scale(0.94);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 0.88;
+      transform: rotate(var(--rotate)) scale(1);
+      filter: blur(0);
+    }
+  }
+</style>

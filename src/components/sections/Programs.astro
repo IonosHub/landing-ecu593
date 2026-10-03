@@ -1,0 +1,197 @@
+---
+import { programs } from '../../data/programs';
+import { LEVEL_COUNT, WEEKS_PER_LEVEL } from '../../data/method';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Mrz from '../ui/Mrz.astro';
+import PhotoWindow from '../ui/PhotoWindow.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Stamp from '../ui/Stamp.astro';
+import Value from '../ui/Value.astro';
+---
+
+<section class="programs paper" aria-labelledby="programas">
+  <div class="container">
+    <SectionHeading
+      id="programas"
+      title="Una visa para cada edad"
+      lead={`Kids, Teens y Adultos siguen la misma ruta de ${LEVEL_COUNT} niveles de ${WEEKS_PER_LEVEL} semanas. Elige la que va contigo o con tus hijos.`}
+    />
+
+    <ol class="visas">
+      {
+        programs.map((program, index) => (
+          <li class="visa" style={`--tilt:${[-0.8, 0.6, -0.4][index]}deg`} data-reveal>
+            <div class="visa-band">
+              <span>
+                Visa de estudio<span class="band-name"> · {program.name}</span>
+              </span>
+              <span class="tabular code">ECU593-{program.code}</span>
+            </div>
+            <div class="visa-body">
+              <PhotoWindow image={program.image} ratio="4 / 5" class="visa-photo" />
+              <div class="visa-data">
+                <h3>{program.name}</h3>
+                <dl class="facts">
+                  <div>
+                    <dt class="data-label">Para</dt>
+                    <dd>{program.audience}</dd>
+                  </div>
+                  <div>
+                    <dt class="data-label">Edades</dt>
+                    <dd>
+                      <Value value={program.ages} fallback="Consúltanos" />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="data-label">Modalidad</dt>
+                    <dd>Presencial · Online</dd>
+                  </div>
+                </dl>
+                <p class="pitch">{program.pitch}</p>
+                <ul class="focus">
+                  {program.focus.map((item) => (
+                    <li>
+                      <Icon name="check" size={18} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Button href="#solicitud" data-program={program.name}>
+                  Quiero {program.name}
+                </Button>
+              </div>
+            </div>
+            <Mrz lines={[`V<ECU593<<${program.name}<<${program.audience}`, `VISA<${program.code}<<12<NIVELES<<4<SEMANAS<C-U`]} class="visa-mrz" />
+            <Stamp
+              class="visa-stamp"
+              top="Visa aprobada"
+              main={program.code}
+              bottom={program.name}
+              ink={program.stampInk}
+              rotate={[14, -10, 8][index]}
+              size="clamp(6.5rem, 10vw, 8.5rem)"
+            />
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .programs {
+    padding-block: var(--space-9);
+  }
+  .visas {
+    list-style: none;
+    margin: var(--space-8) 0 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  }
+  .visa {
+    position: relative;
+    width: min(100%, 58rem);
+    border-radius: var(--radius-page);
+    background:
+      var(--rosette-paper) calc(100% + 11rem) calc(100% + 9rem) / 24rem no-repeat,
+      linear-gradient(180deg, #f2f7f4, #e3eee9);
+    box-shadow: var(--shadow-page), inset 0 0 0 1px var(--paper-edge);
+    rotate: var(--tilt);
+  }
+  @media (max-width: 420px) {
+    .band-name {
+      display: none;
+    }
+  }
+  .visa:nth-child(even) {
+    margin-left: auto;
+  }
+  .visa-band {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-page) var(--radius-page) 0 0;
+    background: var(--navy-900);
+    color: var(--on-navy);
+    font-family: var(--font-data);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 4px solid transparent;
+    border-image: linear-gradient(90deg, var(--sun) 0 50%, var(--sky) 50% 75%, var(--flame) 75%) 1;
+  }
+  .code {
+    white-space: nowrap;
+  }
+  .visa-body {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.7fr) 1.5fr;
+    gap: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+    padding: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+  }
+  .visa-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  h3 {
+    font-size: var(--step-3);
+    color: var(--navy-900);
+  }
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+    margin: 0;
+  }
+  .facts dd {
+    margin: 2px 0 0;
+    font-weight: 600;
+  }
+  .pitch {
+    max-width: 44ch;
+    color: var(--ink-soft);
+  }
+  .focus {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .focus li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 500;
+  }
+  .focus :global(svg) {
+    color: var(--sky-text);
+    flex: none;
+  }
+  .visa :global(.visa-mrz) {
+    padding: var(--space-3) clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+    border-top: 1.5px solid var(--rule);
+  }
+  .visa :global(.visa-stamp) {
+    position: absolute;
+    right: clamp(0.5rem, 3vw, 2.5rem);
+    top: 3.25rem;
+  }
+
+  @media (max-width: 680px) {
+    .visa {
+      rotate: none;
+    }
+    .visa-body {
+      grid-template-columns: 1fr;
+    }
+    .visa-body :global(.visa-photo) {
+      max-width: 15rem;
+    }
+  }
+</style>

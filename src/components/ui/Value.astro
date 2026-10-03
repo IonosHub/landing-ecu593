@@ -1,0 +1,51 @@
+---
+import { isPending, showPending, type Maybe } from '../../lib/pending';
+
+/**
+ * Renders a value that may still be pending. Pending values show a dashed
+ * "Dato pendiente" tag in dev and fall back to `fallback` (or nothing) in production.
+ */
+interface Props {
+  value: Maybe<string>;
+  fallback?: string;
+}
+
+const { value, fallback } = Astro.props;
+---
+
+{
+  isPending(value) ? (
+    showPending ? (
+      <span class="pending" title="Completar en src/config o src/data">
+        <span class="tag">Dato pendiente</span>
+        {value.label}
+      </span>
+    ) : (
+      fallback
+    )
+  ) : (
+    value
+  )
+}
+
+<style>
+  .pending {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4em;
+    padding: 0.1em 0.5em;
+    border: 1.5px dashed var(--flame);
+    border-radius: 4px;
+    color: var(--flame-text);
+    font-size: 0.9em;
+    font-weight: 500;
+    background: rgb(216 53 42 / 0.06);
+  }
+  .tag {
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

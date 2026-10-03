@@ -1,0 +1,258 @@
+---
+import { evaluation, levelContent, levels, LEVEL_COUNT, TOTAL_WEEKS, WEEKS_PER_LEVEL } from '../../data/method';
+import { isPending } from '../../lib/pending';
+import Stamp from '../ui/Stamp.astro';
+import Value from '../ui/Value.astro';
+
+const inks = ['flame', 'sky', 'violet', 'navy'] as const;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section class="method" aria-labelledby="metodo">
+  <div class="container layout">
+    <div class="aside">
+      <div class="aside-inner">
+        <h2 id="metodo">{LEVEL_COUNT} niveles. Un sello por cada uno.</h2>
+        <p class="lead">
+          Cada nivel dura {WEEKS_PER_LEVEL} semanas y termina con una evaluación. Si apruebas, ganas el sello y pasas al siguiente. En {TOTAL_WEEKS} semanas completas la ruta.
+        </p>
+
+        <div class="counter" aria-live="polite">
+          <span class="data-label">Tu pasaporte</span>
+          <p class="count tabular">
+            <span data-stamp-count>{pad(LEVEL_COUNT)}</span><span class="of">/{LEVEL_COUNT}</span>
+          </p>
+          <p class="weeks tabular">
+            <span data-week-count>{TOTAL_WEEKS}</span> de {TOTAL_WEEKS} semanas
+          </p>
+          <div class="track" aria-hidden="true"><span data-track></span></div>
+        </div>
+
+        <dl class="rules">
+          {
+            evaluation.map((rule) => (
+              <div>
+                <dt class="data-label">{rule.label}</dt>
+                <dd>{rule.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        {isPending(levelContent) && <p class="content-note"><Value value={levelContent} /></p>}
+      </div>
+    </div>
+
+    <ol class="pages" data-level-pages data-weeks-per-level={WEEKS_PER_LEVEL}>
+      {
+        levels.map((level, index) => (
+          <li class="level">
+            <span class="data-label">Nivel</span>
+            <span class="number tabular">{pad(level.number)}</span>
+            <span class="range tabular">
+              Semanas {level.weekFrom}–{level.weekTo}
+            </span>
+            {!isPending(level.cefr) && <span class="cefr">{level.cefr}</span>}
+            <Stamp
+              class="level-stamp"
+              shape={index % 3 === 1 ? 'rect' : 'circle'}
+              top={`Nivel ${pad(level.number)}`}
+              main="Aprobado"
+              bottom={`Semana ${level.weekTo}`}
+              ink={inks[index % inks.length]}
+              rotate={[-9, 6, -4, 11, -13, 3][index % 6]}
+              size={index % 3 === 1 ? '9.5rem' : '7.75rem'}
+            />
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script>
+  // Counter follows the stamps as they land; without motion it stays at the full 12/12.
+  const pages = document.querySelector<HTMLElement>('[data-level-pages]');
+  const count = document.querySelector<HTMLElement>('[data-stamp-count]');
+  const weeks = document.querySelector<HTMLElement>('[data-week-count]');
+  const track = document.querySelector<HTMLElement>('[data-track]');
+
+  if (pages && count && weeks && track && document.documentElement.classList.contains('motion-ok')) {
+    const stamps = [...pages.querySelectorAll<HTMLElement>('[data-stamp]')];
+    const total = stamps.length;
+    const render = () => {
+      const inked = stamps.filter((stamp) => stamp.classList.contains('is-inked')).length;
+      count.textContent = String(inked).padStart(2, '0');
+      weeks.textContent = String(inked * Number(pages.dataset.weeksPerLevel));
+      track.style.setProperty('--progress', String(inked / total));
+    };
+    render();
+    new MutationObserver(render).observe(pages, { subtree: true, attributeFilter: ['class'] });
+  }
+</script>
+
+<style>
+  .method {
+    padding-block: var(--space-9);
+    background-color: var(--paper-deep);
+    background-image: var(--guilloche-band);
+    background-size: 240px 96px;
+    border-block: 1.5px solid var(--paper-edge);
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.85fr) 1.4fr;
+    gap: clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+  .aside {
+    position: sticky;
+    top: 6rem;
+  }
+  .aside-inner {
+    display: grid;
+    gap: var(--space-5);
+  }
+  h2 {
+    font-size: var(--step-3);
+    color: var(--navy-900);
+  }
+  .lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .counter {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-5);
+    border-radius: var(--radius-page);
+    background: var(--navy-900);
+    color: var(--on-navy);
+    box-shadow: var(--shadow-lift);
+  }
+  .counter .data-label {
+    color: var(--on-navy-soft);
+  }
+  .count {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 2.5rem + 3vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--sun);
+  }
+  .of {
+    color: var(--on-navy-soft);
+    font-size: 0.45em;
+    letter-spacing: 0;
+    margin-left: 0.1em;
+  }
+  .weeks {
+    font-family: var(--font-data);
+    font-size: 0.8125rem;
+    color: var(--on-navy-soft);
+  }
+  .track {
+    height: 6px;
+    margin-top: var(--space-3);
+    border-radius: 99px;
+    background: rgb(255 255 255 / 0.12);
+    overflow: hidden;
+  }
+  .track span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--sun) 0 50%, var(--sky) 50% 75%, var(--flame) 75%);
+    transform-origin: left;
+    transform: scaleX(var(--progress, 1));
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+
+  .rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4) var(--space-5);
+    margin: 0;
+  }
+  .rules dd {
+    margin: 2px 0 0;
+    font-weight: 600;
+  }
+
+  .pages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  .level {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-height: 15rem;
+    padding: var(--space-5);
+    border-radius: 10px;
+    background:
+      var(--rosette-paper) 140% 140% / 18rem no-repeat,
+      var(--paper);
+    box-shadow: var(--shadow-page), inset 0 0 0 1px var(--paper-edge);
+    overflow: hidden;
+  }
+  .number {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 800;
+    font-size: 2.75rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--navy-900);
+  }
+  .range {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .cefr {
+    font-weight: 700;
+    color: var(--sky-text);
+  }
+  .level :global(.level-stamp) {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.75rem;
+  }
+  .content-note {
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 1080px) {
+    .pages {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 820px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+    .aside {
+      position: static;
+    }
+  }
+  @media (max-width: 520px) {
+    .level {
+      min-height: 12.5rem;
+      padding: var(--space-4);
+    }
+    .level :global(.level-stamp) {
+      --size: 6.25rem !important;
+    }
+    .rules {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

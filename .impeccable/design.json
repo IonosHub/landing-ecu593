@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T15:10:23+00:00",
+  "title": "Design System: Ecu593 English",
+  "extensions": {
+    "colorMeta": {
+      "navy-950": {
+        "role": "primary",
+        "displayName": "Azul Noche Profundo",
+        "canonical": "oklch(19.9% 0.059 268.9)",
+        "tonalRamp": [
+          "#040823",
+          "#182240",
+          "#333e5f",
+          "#505c7f",
+          "#727fa4",
+          "#95a4ca",
+          "#bbcaf2",
+          "#e6eeff"
+        ]
+      },
+      "navy-900": {
+        "role": "primary",
+        "displayName": "Azul Tapa de Pasaporte",
+        "canonical": "oklch(26.0% 0.080 268.4)",
+        "tonalRamp": [
+          "#02042c",
+          "#14204a",
+          "#2e3d6a",
+          "#4b5b8b",
+          "#6c7eb0",
+          "#8fa3d7",
+          "#b5c9ff",
+          "#e3eeff"
+        ]
+      },
+      "navy-800": {
+        "role": "primary",
+        "displayName": "Azul Tapa Iluminado",
+        "canonical": "oklch(30.8% 0.093 268.2)",
+        "tonalRamp": [
+          "#020231",
+          "#111e50",
+          "#2b3c70",
+          "#475b92",
+          "#687eb8",
+          "#8ca3e0",
+          "#b1c9ff",
+          "#e1eeff"
+        ]
+      },
+      "navy-600": {
+        "role": "primary",
+        "displayName": "Azul Lomo",
+        "canonical": "oklch(41.8% 0.114 268.6)",
+        "tonalRamp": [
+          "#03003a",
+          "#0f1a5a",
+          "#27397b",
+          "#43599d",
+          "#647cc4",
+          "#87a1ec",
+          "#acc8ff",
+          "#deeeff"
+        ]
+      },
+      "sun": {
+        "role": "secondary",
+        "displayName": "Amarillo Sol",
+        "canonical": "oklch(83.4% 0.158 89.0)",
+        "tonalRamp": [
+          "#230000",
+          "#411600",
+          "#613500",
+          "#815400",
+          "#a67800",
+          "#cc9d00",
+          "#f4c433",
+          "#ffedb2"
+        ]
+      },
+      "sky": {
+        "role": "tertiary",
+        "displayName": "Azul Cielo",
+        "canonical": "oklch(55.8% 0.174 259.7)",
+        "tonalRamp": [
+          "#050053",
+          "#000a76",
+          "#003499",
+          "#1457bd",
+          "#3b7ce6",
+          "#5fa2ff",
+          "#84caff",
+          "#cff0ff"
+        ]
+      },
+      "sky-text": {
+        "role": "tertiary",
+        "displayName": "Azul Cielo Texto",
+        "canonical": "oklch(47.2% 0.163 260.6)",
+        "tonalRamp": [
+          "#04004e",
+          "#001070",
+          "#003694",
+          "#2057b8",
+          "#437de0",
+          "#67a3ff",
+          "#8bcaff",
+          "#d0f0ff"
+        ]
+      },
+      "flame": {
+        "role": "tertiary",
+        "displayName": "Rojo Llama",
+        "canonical": "oklch(58.1% 0.201 28.8)",
+        "tonalRamp": [
+          "#3f0000",
+          "#660000",
+          "#8d0000",
+          "#b40000",
+          "#df3c30",
+          "#ff6756",
+          "#ff8f7b",
+          "#ffdbd0"
+        ]
+      },
+      "flame-text": {
+        "role": "tertiary",
+        "displayName": "Rojo Llama Texto",
+        "canonical": "oklch(51.1% 0.182 28.9)",
+        "tonalRamp": [
+          "#3b0000",
+          "#610000",
+          "#870000",
+          "#ad1912",
+          "#d7483a",
+          "#ff6f5e",
+          "#ff9783",
+          "#ffdbd0"
+        ]
+      },
+      "violet": {
+        "role": "tertiary",
+        "displayName": "Violeta Sello",
+        "canonical": "oklch(45.2% 0.150 292.7)",
+        "tonalRamp": [
+          "#160043",
+          "#2c0064",
+          "#462686",
+          "#6347a9",
+          "#856cd1",
+          "#a891fa",
+          "#ceb7ff",
+          "#efe6ff"
+        ]
+      },
+      "whatsapp": {
+        "role": "tertiary",
+        "displayName": "Verde WhatsApp",
+        "canonical": "oklch(64.4% 0.165 150.8)",
+        "tonalRamp": [
+          "#001800",
+          "#003500",
+          "#005500",
+          "#007524",
+          "#009a48",
+          "#42c16c",
+          "#6ee891",
+          "#c8ffd3"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel de Seguridad",
+        "canonical": "oklch(94.6% 0.012 170.3)",
+        "tonalRamp": [
+          "#070d0a",
+          "#1f2623",
+          "#3a423f",
+          "#57605d",
+          "#7a837f",
+          "#9ea7a3",
+          "#c3cdc9",
+          "#ebf0ee"
+        ]
+      },
+      "paper-deep": {
+        "role": "neutral",
+        "displayName": "Papel Profundo",
+        "canonical": "oklch(90.4% 0.020 169.3)",
+        "tonalRamp": [
+          "#030e0a",
+          "#1a2722",
+          "#35433e",
+          "#53625c",
+          "#75847e",
+          "#99a9a2",
+          "#becfc8",
+          "#e8f1ed"
+        ]
+      },
+      "paper-edge": {
+        "role": "neutral",
+        "displayName": "Canto de Papel",
+        "canonical": "oklch(83.8% 0.028 170.1)",
+        "tonalRamp": [
+          "#010f09",
+          "#162822",
+          "#31453d",
+          "#4e635b",
+          "#70867e",
+          "#94aba2",
+          "#bad1c8",
+          "#e6f2ed"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "oklch(25.3% 0.060 263.8)",
+        "tonalRamp": [
+          "#010824",
+          "#152341",
+          "#2f3f60",
+          "#4c5d80",
+          "#6e80a5",
+          "#91a5cb",
+          "#b7cbf3",
+          "#e4efff"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Tinta Suave",
+        "canonical": "oklch(42.4% 0.053 257.9)",
+        "tonalRamp": [
+          "#000a21",
+          "#13243d",
+          "#2e405c",
+          "#4b5f7c",
+          "#6d82a0",
+          "#90a6c6",
+          "#b6cced",
+          "#e4efff"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Regla Impresa",
+        "canonical": "oklch(76.3% 0.031 172.6)",
+        "tonalRamp": [
+          "#000f0a",
+          "#132922",
+          "#2e453e",
+          "#4c645c",
+          "#6e877e",
+          "#92aba2",
+          "#b7d2c8",
+          "#e5f2ed"
+        ]
+      },
+      "on-navy": {
+        "role": "neutral",
+        "displayName": "Texto sobre Tapa",
+        "canonical": "oklch(96.0% 0.009 258.3)",
+        "tonalRamp": [
+          "#090b0f",
+          "#212429",
+          "#3d4045",
+          "#5a5e63",
+          "#7d8086",
+          "#a1a5aa",
+          "#c7cbd1",
+          "#edeff2"
+        ]
+      },
+      "on-navy-soft": {
+        "role": "neutral",
+        "displayName": "Texto Suave sobre Tapa",
+        "canonical": "oklch(82.2% 0.044 269.5)",
+        "tonalRamp": [
+          "#05091d",
+          "#1b2339",
+          "#363f57",
+          "#545d77",
+          "#76809b",
+          "#99a4c1",
+          "#bfcae8",
+          "#e8eefe"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "H1 del hero y H2 de la contraportada; Archivo al 112% de ancho."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "H2 de sección y nombre de visa."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Preguntas frecuentes, modalidades, botones (750)."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Número de nivel y contador de sellos; Archivo al 125%."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Párrafo bajo cada titular, en ink-soft."
+      },
+      "label": {
+        "displayName": "Etiqueta de dato",
+        "purpose": "Versalitas sobre cada valor (.data-label)."
+      },
+      "data": {
+        "displayName": "Data / MRZ",
+        "purpose": "Martian Mono para MRZ, bandas, códigos y cifras de control."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-page",
+        "value": "0 1px 0 rgb(11 19 48 / 0.08), 0 18px 40px -18px rgb(11 19 48 / 0.45)",
+        "purpose": "Hoja apoyada en la mesa; siempre con inset 0 0 0 1px var(--paper-edge)."
+      },
+      {
+        "name": "shadow-lift",
+        "value": "0 2px 4px rgb(11 19 48 / 0.12), 0 12px 24px -10px rgb(11 19 48 / 0.35)",
+        "purpose": "Contador de sellos sobre papel."
+      },
+      {
+        "name": "spine",
+        "value": "inset 28px 0 32px -26px rgb(11 19 48 / 0.45)",
+        "purpose": "Pliegue del lomo entre las páginas del pasaporte (espejado en la otra página)."
+      },
+      {
+        "name": "paper-edge",
+        "value": "inset 0 0 0 1px var(--paper-edge)",
+        "purpose": "Filete de canto de toda hoja y marco de foto."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Estados, giros de página, revelados."
+      },
+      {
+        "name": "ease-thump",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Golpe de sello."
+      },
+      {
+        "name": "dur-fast",
+        "value": "180ms",
+        "purpose": "Hover y foco."
+      },
+      {
+        "name": "dur-base",
+        "value": "420ms",
+        "purpose": "Barra de progreso del contador."
+      },
+      {
+        "name": "dur-slow",
+        "value": "900ms",
+        "purpose": "Opacidad del giro de página; transform y clip a 1100ms."
+      },
+      {
+        "name": "stamp-thump",
+        "value": "520ms ease-thump: scale 1.7 + rotate +10deg + blur 3px -> scale 0.94 al 55% -> scale 1, opacity 0.88",
+        "purpose": "Entrada de cada sello, escalonada con --stamp-delay."
+      },
+      {
+        "name": "page-turn",
+        "value": "perspective(1600px) rotateY(-24deg) desde el lomo izquierdo, clip-path que se abre, 1100ms",
+        "purpose": "Entrada de hojas con data-reveal."
+      },
+      {
+        "name": "ticket-press",
+        "value": "hover translateY(-2px) rotate(-0.6deg); active scale(0.95) 80ms",
+        "purpose": "Boletos."
+      },
+      {
+        "name": "reduced-motion",
+        "value": ".motion-ok solo si no hay prefers-reduced-motion; estado final impreso por defecto",
+        "purpose": "Todo movimiento es opcional."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "420px"
+      },
+      {
+        "name": "sm",
+        "value": "520px"
+      },
+      {
+        "name": "form-1col",
+        "value": "560px"
+      },
+      {
+        "name": "visa-flat",
+        "value": "680px"
+      },
+      {
+        "name": "md",
+        "value": "760px"
+      },
+      {
+        "name": "method-1col",
+        "value": "820px"
+      },
+      {
+        "name": "spread-stack",
+        "value": "900px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "960px"
+      },
+      {
+        "name": "levels-2col",
+        "value": "1080px"
+      }
+    ],
+    "patterns": [
+      {
+        "name": "guilloche-band",
+        "value": "url('/patterns/guilloche-band.svg') 240px 96px repeat",
+        "purpose": "Fondo de papel de seguridad de toda hoja y sección .paper."
+      },
+      {
+        "name": "rosette-paper",
+        "value": "url('/patterns/rosette-paper.svg')",
+        "purpose": "Roseta parcialmente fuera del borde en hojas, páginas de nivel y marcos de foto."
+      },
+      {
+        "name": "rosette-cover",
+        "value": "url('/patterns/rosette-cover.svg')",
+        "purpose": "Rosetas grandes desbordadas sobre las tapas navy."
+      },
+      {
+        "name": "ink-rough",
+        "value": "filtro SVG feTurbulence + feDisplacementMap (scale 2.6) + máscara de moteado",
+        "purpose": "Borde irregular de tinta de todos los sellos; definido una vez en BaseLayout."
+      },
+      {
+        "name": "flag-stripe",
+        "value": "linear-gradient(90deg, var(--sun) 0 50%, var(--sky) 50% 75%, var(--flame) 75%)",
+        "purpose": "Franja de 4px bajo bandas de documento y barra de progreso."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Boleto primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Boleto troquelado amarillo para la acción de inscripción.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">Quiero inscribirme <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; gap: 0.6em; min-height: 3.25rem; padding: 0.8em 1.6em; border: 0; border-radius: 4px; font-family: var(--font-display); font-stretch: 100%; font-weight: 750; font-size: 1rem; letter-spacing: 0.01em; text-decoration: none; cursor: pointer; -webkit-mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) right / 51% 100% no-repeat; mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) right / 51% 100% no-repeat; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn::before { content: ''; position: absolute; inset: 4px 10px; border-block: 1.5px dashed currentColor; opacity: 0.35; pointer-events: none; } .ds-btn svg { transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover { transform: translateY(-2px) rotate(-0.6deg); } .ds-btn:hover svg { transform: translateX(3px); } .ds-btn:active { transform: scale(0.95); transition-duration: 80ms; } .ds-btn:focus-visible { outline: 3px solid var(--sky, #2e6fd8); outline-offset: 3px; } .ds-btn-primary { background: var(--sun, #f2c230); color: var(--navy-900, #14204a); } .ds-btn-primary:hover { background: #f6cd4a; }"
+    },
+    {
+      "name": "Boleto WhatsApp",
+      "kind": "button",
+      "refersTo": "button-whatsapp",
+      "description": "Boleto verde reservado al canal WhatsApp.",
+      "html": "<a class=\"ds-btn ds-btn-wa\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20l1.3-3.9A8 8 0 1 1 8 19.1z\"/></svg> Escríbenos</a>",
+      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; gap: 0.6em; min-height: 3.25rem; padding: 0.8em 1.6em; border: 0; border-radius: 4px; font-family: var(--font-display); font-stretch: 100%; font-weight: 750; font-size: 1rem; letter-spacing: 0.01em; text-decoration: none; cursor: pointer; -webkit-mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) right / 51% 100% no-repeat; mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) right / 51% 100% no-repeat; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn::before { content: ''; position: absolute; inset: 4px 10px; border-block: 1.5px dashed currentColor; opacity: 0.35; pointer-events: none; } .ds-btn svg { transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover { transform: translateY(-2px) rotate(-0.6deg); } .ds-btn:hover svg { transform: translateX(3px); } .ds-btn:active { transform: scale(0.95); transition-duration: 80ms; } .ds-btn:focus-visible { outline: 3px solid var(--sky, #2e6fd8); outline-offset: 3px; } .ds-btn-wa { background: var(--whatsapp, #1fa855); color: #fff; } .ds-btn-wa:hover { background: #1b984c; }"
+    },
+    {
+      "name": "Boleto ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Boleto transparente con trazo navy para acciones secundarias sobre papel.",
+      "html": "<a class=\"ds-btn ds-btn-ghost\" href=\"#\">Ver programas <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; gap: 0.6em; min-height: 3.25rem; padding: 0.8em 1.6em; border: 0; border-radius: 4px; font-family: var(--font-display); font-stretch: 100%; font-weight: 750; font-size: 1rem; letter-spacing: 0.01em; text-decoration: none; cursor: pointer; -webkit-mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) right / 51% 100% no-repeat; mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) right / 51% 100% no-repeat; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn::before { content: ''; position: absolute; inset: 4px 10px; border-block: 1.5px dashed currentColor; opacity: 0.35; pointer-events: none; } .ds-btn svg { transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover { transform: translateY(-2px) rotate(-0.6deg); } .ds-btn:hover svg { transform: translateX(3px); } .ds-btn:active { transform: scale(0.95); transition-duration: 80ms; } .ds-btn:focus-visible { outline: 3px solid var(--sky, #2e6fd8); outline-offset: 3px; } .ds-btn-ghost { background: transparent; color: var(--navy-900, #14204a); box-shadow: inset 0 0 0 2px var(--navy-900, #14204a); } .ds-btn-ghost::before { opacity: 0.7; } .ds-btn-ghost:hover { background: rgb(19 33 63 / 0.08); }"
+    },
+    {
+      "name": "Campo rayado",
+      "kind": "input",
+      "refersTo": "field-ruled",
+      "description": "Campo de formulario oficial: etiqueta en versalitas arriba, regla inferior, sin caja.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Celular</span><input class=\"ds-input\" placeholder=\"09XXXXXXXX\" /></label>",
+      "css": ".ds-field { display: grid; gap: 0.5rem; padding: 1.5rem; background: var(--paper, #e6f0ec); } .ds-label { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft, #3c4f6b); } .ds-input { width: 100%; min-height: 2.75rem; padding: 0.45em 0 0.35em; border: 0; border-bottom: 1.5px solid var(--ink-soft, #3c4f6b); border-radius: 0; background: transparent; color: var(--ink, #13213f); font: inherit; font-size: 1.0625rem; font-weight: 500; transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-input::placeholder { color: #5d6e86; } .ds-input:hover { border-bottom-color: var(--navy-900, #14204a); } .ds-input:focus-visible { outline: none; border-bottom-color: var(--sky, #2e6fd8); box-shadow: 0 1.5px 0 var(--sky, #2e6fd8); }"
+    },
+    {
+      "name": "Barra de navegación",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Barra fija de tapa navy con enlaces suaves y boleto compacto.",
+      "html": "<nav class=\"ds-nav\"><strong class=\"ds-brand\">Ecu593 English<span>Learn · Grow · Achieve</span></strong><a href=\"#\">Programas</a><a href=\"#\">Método</a><a href=\"#\">Preguntas</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 0.25rem; min-height: 4.5rem; padding: 0 1.5rem; background: rgb(11 19 48 / 0.9); border-bottom: 1px solid rgb(185 196 226 / 0.14); color: var(--on-navy, #eef2f8); } .ds-brand { display: grid; margin-right: auto; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 1.0625rem; line-height: 1.15; } .ds-brand span { font-family: var(--font-body); font-stretch: 100%; font-weight: 600; font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sun, #f2c230); } .ds-nav a { padding: 0.5rem 0.75rem; border-radius: 6px; color: var(--on-navy-soft, #b9c4e2); font-weight: 500; font-size: 0.9375rem; text-decoration: none; transition: color 180ms, background-color 180ms; } .ds-nav a:hover { color: var(--on-navy, #eef2f8); background: rgb(255 255 255 / 0.07); } .ds-nav a:focus-visible { outline: 3px solid var(--sky, #2e6fd8); outline-offset: 3px; }"
+    },
+    {
+      "name": "Hoja de visa",
+      "kind": "card",
+      "refersTo": "document-sheet",
+      "description": "Hoja de documento con banda navy, franja tricolor, campos rotulados y MRZ al pie.",
+      "html": "<article class=\"ds-sheet\"><div class=\"ds-band\"><span>Visa de estudio · Kids</span><span>ECU-K</span></div><div class=\"ds-sheet-body\"><h3>Kids</h3><dl><dt>Edad</dt><dd>Niños</dd></dl></div><div class=\"ds-mrz\">V&lt;ECU593&lt;&lt;KIDS&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div></article>",
+      "css": ".ds-sheet { max-width: 28rem; border-radius: 14px; background: linear-gradient(180deg, #f2f7f4, #e3eee9); box-shadow: 0 1px 0 rgb(11 19 48 / 0.08), 0 18px 40px -18px rgb(11 19 48 / 0.45), inset 0 0 0 1px var(--paper-edge, #b9d0c7); color: var(--ink, #13213f); } .ds-band { display: flex; justify-content: space-between; padding: 0.75rem 1.5rem; border-radius: 14px 14px 0 0; background: var(--navy-900, #14204a); color: var(--on-navy, #eef2f8); font-family: var(--font-data); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 4px solid transparent; border-image: linear-gradient(90deg, #f2c230 0 50%, #2e6fd8 50% 75%, #d8352a 75%) 1; } .ds-sheet-body { padding: 1.5rem; } .ds-sheet h3 { margin: 0 0 1rem; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 2rem; letter-spacing: -0.03em; color: var(--navy-900, #14204a); } .ds-sheet dl { margin: 0; } .ds-sheet dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft, #3c4f6b); } .ds-sheet dd { margin: 2px 0 0; font-weight: 600; } .ds-mrz { padding: 0.75rem 1.5rem; border-top: 1.5px solid var(--rule, #9fb9b0); font-family: var(--font-data); font-size: 0.7rem; letter-spacing: 0.16em; white-space: nowrap; overflow: hidden; }"
+    },
+    {
+      "name": "Sello de goma",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "Sello circular de triple anillo, rotado, en tinta con multiply. Marca principal y estado.",
+      "html": "<span class=\"ds-stamp\"><svg viewBox=\"0 0 200 200\" fill=\"none\"><defs><path id=\"ds-arc\" d=\"M 30 100 A 70 70 0 0 1 170 100\"/></defs><circle cx=\"100\" cy=\"100\" r=\"94\" stroke=\"currentColor\" stroke-width=\"5\"/><circle cx=\"100\" cy=\"100\" r=\"86\" stroke=\"currentColor\" stroke-width=\"1.5\"/><circle cx=\"100\" cy=\"100\" r=\"52\" stroke=\"currentColor\" stroke-width=\"2\"/><text class=\"ds-arc\" fill=\"currentColor\"><textPath href=\"#ds-arc\" startOffset=\"50%\" text-anchor=\"middle\">NIVEL 01</textPath></text><text class=\"ds-main\" x=\"100\" y=\"100\" fill=\"currentColor\" text-anchor=\"middle\" dominant-baseline=\"central\">APROBADO</text></svg></span>",
+      "css": ".ds-stamp { display: inline-block; width: 9rem; color: var(--flame, #d8352a); transform: rotate(-8deg); mix-blend-mode: multiply; opacity: 0.88; transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-stamp:hover { transform: rotate(-4deg) scale(1.04); } .ds-stamp text { font-family: var(--font-display); font-stretch: 75%; font-weight: 800; text-transform: uppercase; } .ds-arc { font-size: 15px; letter-spacing: 0.14em; } .ds-main { font-size: 30px; letter-spacing: 0.02em; }"
+    },
+    {
+      "name": "Contador de sellos",
+      "kind": "custom",
+      "refersTo": "stamp-counter",
+      "description": "Panel navy que cuenta los niveles sellados con barra de progreso tricolor.",
+      "html": "<div class=\"ds-counter\"><span class=\"ds-clabel\">Tu pasaporte</span><p class=\"ds-count\">05<span>/12</span></p><p class=\"ds-weeks\">20 de 48 semanas</p><div class=\"ds-track\"><span></span></div></div>",
+      "css": ".ds-counter { display: grid; gap: 0.25rem; max-width: 18rem; padding: 1.5rem; border-radius: 14px; background: var(--navy-900, #14204a); color: var(--on-navy, #eef2f8); box-shadow: 0 2px 4px rgb(11 19 48 / 0.12), 0 12px 24px -10px rgb(11 19 48 / 0.35); } .ds-clabel { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-navy-soft, #b9c4e2); } .ds-count { margin: 0; font-family: var(--font-display); font-stretch: 125%; font-weight: 800; font-size: 4rem; line-height: 1; letter-spacing: -0.04em; color: var(--sun, #f2c230); font-variant-numeric: tabular-nums; } .ds-count span { font-size: 0.45em; letter-spacing: 0; color: var(--on-navy-soft, #b9c4e2); } .ds-weeks { margin: 0; font-family: var(--font-data); font-size: 0.8125rem; color: var(--on-navy-soft, #b9c4e2); } .ds-track { height: 6px; margin-top: 0.75rem; border-radius: 99px; background: rgb(255 255 255 / 0.12); overflow: hidden; } .ds-track span { display: block; height: 100%; background: linear-gradient(90deg, #f2c230 0 50%, #2e6fd8 50% 75%, #d8352a 75%); transform-origin: left; transform: scaleX(0.42); transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-counter:hover .ds-track span { transform: scaleX(0.5); }"
+    },
+    {
+      "name": "Valor pendiente",
+      "kind": "chip",
+      "refersTo": "pending-value",
+      "description": "Marcador de dato desconocido; solo visible en desarrollo.",
+      "html": "<span class=\"ds-pending\"><span class=\"ds-ptag\">Dato pendiente</span>Precio del nivel</span>",
+      "css": ".ds-pending { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0.4em; padding: 0.1em 0.5em; border: 1.5px dashed var(--flame, #d8352a); border-radius: 4px; color: var(--flame-text, #b8271e); font-size: 0.9em; font-weight: 500; background: rgb(216 53 42 / 0.06); } .ds-ptag { font-family: var(--font-data); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Ventana de foto",
+      "kind": "custom",
+      "refersTo": "photo-window",
+      "description": "Marco troquelado con guilloché; sin foto muestra el hueco y la toma que corresponde.",
+      "html": "<figure class=\"ds-window\"><div class=\"ds-empty\"><span>Foto pendiente</span><span>Grupo de adolescentes en clase</span></div></figure>",
+      "css": ".ds-window { margin: 0; width: 14rem; aspect-ratio: 4 / 5; padding: 11px; border-radius: 10px; background: var(--paper-deep, #d3e4dd); box-shadow: inset 0 0 0 1px var(--paper-edge, #b9d0c7); } .ds-empty { display: grid; place-content: center; gap: 0.5rem; height: 100%; padding: 1.5rem; text-align: center; border-radius: 6px; border: 1.5px dashed var(--rule, #9fb9b0); background: repeating-linear-gradient(-45deg, transparent 0 9px, rgb(19 33 63 / 0.05) 9px 10px), rgb(230 240 236 / 0.82); font-size: 0.8125rem; color: var(--ink-soft, #3c4f6b); } .ds-empty span:first-child { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El Pasaporte de 12 Sellos",
+    "overview": "Todo el sistema es un documento de viaje ecuatoriano. La tapa es azul noche (navy) y aparece al inicio y al cierre, como las dos tapas de un pasaporte; entre ellas, cada sección es una hoja de papel de seguridad verde menta con guilloché tricolor. Los datos no se escriben como marketing, se registran como en un documento: etiqueta pequeña en versalitas encima, valor debajo, líneas MRZ en monoespaciada al pie. El sello de goma es la marca principal y el marcador de estado: un nivel aprobado, una modalidad de entrada, una solicitud recibida.\n\nLa densidad es de documento oficial: reglas finas, bandas de encabezado, campos rayados, pero con aire generoso entre secciones (`--space-9`). El movimiento es físico y breve: los sellos caen con un golpe (\"thump\") y las hojas giran desde su lomo como una página. Con `prefers-reduced-motion` todo queda impreso y estático; sin JavaScript también.\n\nEl sistema es honesto por construcción: lo que no se sabe todavía (precios, horarios, fotos, testimonios) se muestra como \"Dato pendiente\" en desarrollo y desaparece o cae a un texto de respaldo en producción. Nunca se inventa un dato para llenar un hueco.",
+    "keyCharacteristics": [
+      "Tapa navy al abrir y cerrar; papel de seguridad menta con guilloché en todo lo demás. Ninguna sección blanca.",
+      "Sellos de goma rotados, con borde de tinta irregular y `mix-blend-mode: multiply`, como única ilustración y como estado.",
+      "Disciplina de campo rotulado: etiqueta arriba (versalitas, 0.1em), valor abajo, regla de 1.5px.",
+      "Botones como boletos troquelados con muescas y perforación.",
+      "Monoespaciada (Martian Mono) solo para lo que una máquina leería: MRZ, bandas, códigos, contadores.",
+      "Valores pendientes visibles y marcados, jamás inventados."
+    ],
+    "rules": [
+      {
+        "name": "The Two Covers Rule",
+        "body": "El navy es tapa: abre la página (hero) y la cierra (contraportada), y como mucho aparece una vez en medio como hoja especial. Todo lo demás es papel.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flag Stripe Rule",
+        "body": "El amarillo, azul y rojo juntos solo aparecen en la proporción de la bandera (50% / 25% / 25%), como franja de 4px bajo las bandas de documento y como barra de progreso del contador.",
+        "section": "colors"
+      },
+      {
+        "name": "The Text-Grade Ink Rule",
+        "body": "`sky` y `flame` son tintas de sello y de estado; cuando forman texto sobre papel se usan sus versiones `sky-text` y `flame-text`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Label-Over-Value Rule",
+        "body": "Todo hecho se escribe como campo de documento: etiqueta en versalitas arriba, valor debajo con 2px de separación. Nunca un hecho suelto en negrita dentro de un párrafo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Machine-Reads-Mono Rule",
+        "body": "Martian Mono solo para lo que leería una máquina (MRZ, códigos, bandas, cifras de control). Nunca para titulares ni cuerpo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper-On-Desk Rule",
+        "body": "Una hoja lleva sombra de hoja y filete de canto; nada flota sin haber sido apoyado. Los sellos no tienen sombra: son tinta, se funden con `multiply`.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** poner cada sección nueva sobre `paper` o `paper-deep` con guilloché; reserva el navy para tapas.",
+      "**Do** escribir los hechos como campos: `.data-label` arriba (0.75rem, 600, 0.1em, mayúsculas) y valor debajo.",
+      "**Do** marcar estados y logros con un `Stamp` rotado en tinta `flame`, `sky`, `violet` o `navy`, con su dato repetido en texto accesible.",
+      "**Do** usar el boleto `sun` para la acción de inscripción y el boleto `whatsapp` solo para el chat.",
+      "**Do** apoyar cada hoja con `--shadow-page` más `inset 0 0 0 1px var(--paper-edge)`.",
+      "**Do** declarar todo dato desconocido con `pending()` y mostrarlo con `Value`; listarlo en PENDIENTES.md.",
+      "**Do** condicionar todo movimiento a `.motion-ok` y dejar el estado final impreso por defecto."
+    ],
+    "donts": [
+      "**Don't** usar fondos blancos de sección; el blanco solo aparece como placa del logo y texto del boleto WhatsApp.",
+      "**Don't** dibujar campos de formulario como cajas; son reglas inferiores.",
+      "**Don't** usar Martian Mono para titulares o párrafos.",
+      "**Don't** usar `sky` o `flame` como color de texto sobre papel; usa `sky-text` y `flame-text`.",
+      "**Don't** inventar testimonios, precios, cifras o fotos para llenar un hueco; el hueco se muestra como pendiente.",
+      "**Don't** usar la franja tricolor fuera de bandas de documento y barras de progreso, ni en proporciones distintas a 50/25/25.",
+      "**Don't** añadir sombras a los sellos ni sombras duras desplazadas a las hojas."
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  lead?: string;
+  tone?: 'paper' | 'navy';
+  class?: string;
+}
+
+const { id, title, lead, tone = 'paper', class: className } = Astro.props;
+---
+
+<header class:list={['heading', `tone-${tone}`, className]}>
+  <h2 id={id}>{title}</h2>
+  {lead && <p class="lead">{lead}</p>}
+</header>
+
+<style>
+  .heading {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 44rem;
+  }
+  h2 {
+    font-size: var(--step-3);
+  }
+  .lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 38rem;
+  }
+  .tone-navy h2 {
+    color: var(--on-navy);
+  }
+  .tone-navy .lead {
+    color: var(--on-navy-soft);
+  }
+</style>

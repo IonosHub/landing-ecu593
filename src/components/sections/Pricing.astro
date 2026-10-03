@@ -1,0 +1,126 @@
+---
+import { pricing, pricingFallback } from '../../data/pricing';
+import { isPending, showPending } from '../../lib/pending';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import Button from '../ui/Button.astro';
+import Value from '../ui/Value.astro';
+
+const known = pricing.filter((item) => !isPending(item.value));
+const rows = showPending ? pricing : known;
+---
+
+<section class="pricing paper" aria-labelledby="valores">
+  <div class="container receipt-wrap">
+    <div class="receipt" data-reveal>
+      <div class="receipt-head">
+        <h2 id="valores">Valores</h2>
+        <span class="data-label">Tasas · Ecu593 English</span>
+      </div>
+      {
+        rows.length > 0 ? (
+          <dl class="rows">
+            {rows.map((item) => (
+              <div class="row">
+                <dt>{item.label}</dt>
+                <span class="leader" aria-hidden="true" />
+                <dd class="tabular">
+                  <Value value={item.value} />
+                </dd>
+              </div>
+            ))}
+          </dl>
+        ) : null
+      }
+      {known.length < pricing.length && <p class="note">{pricingFallback}</p>}
+      <div class="actions">
+        <Button href={buildWhatsAppUrl('Hola, quiero conocer los valores de los cursos de inglés de Ecu593 English.')} variant="whatsapp" external>
+          Pedir valores por WhatsApp
+        </Button>
+        <Button href="#solicitud" variant="ghost">Dejar mis datos</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding-block: var(--space-9);
+  }
+  .receipt-wrap {
+    display: grid;
+    justify-items: center;
+  }
+  .receipt {
+    width: min(100%, 44rem);
+    display: grid;
+    gap: var(--space-5);
+    padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    border-radius: var(--radius-page);
+    background:
+      var(--rosette-paper) calc(100% + 10rem) calc(0% - 10rem) / 20rem no-repeat,
+      #f2f7f4;
+    box-shadow: var(--shadow-page), inset 0 0 0 1px var(--paper-edge);
+    color: var(--ink);
+  }
+  .receipt-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--navy-900);
+  }
+  h2 {
+    font-size: var(--step-3);
+    color: var(--navy-900);
+  }
+  .rows {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+  .row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+  dt {
+    font-weight: 600;
+    flex: none;
+  }
+  .leader {
+    flex: 1;
+    min-width: 1.5rem;
+    border-bottom: 2px dotted var(--rule);
+    transform: translateY(-0.3em);
+  }
+  dd {
+    margin: 0;
+    text-align: right;
+    font-family: var(--font-data);
+    font-size: 0.875rem;
+  }
+  .note {
+    color: var(--ink-soft);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    color: var(--navy-900);
+  }
+
+  @media (max-width: 560px) {
+    .row {
+      flex-wrap: wrap;
+    }
+    .leader {
+      display: none;
+    }
+    dd {
+      text-align: left;
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import { modalities } from '../../data/modalities';
+import PhotoWindow from '../ui/PhotoWindow.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Stamp from '../ui/Stamp.astro';
+import Value from '../ui/Value.astro';
+---
+
+<section class="modalities paper" aria-labelledby="modalidades">
+  <div class="container">
+    <SectionHeading
+      id="modalidades"
+      title="Presencial u online, tú eliges la entrada"
+      lead="La ruta, los niveles y la evaluación son los mismos. Cambia desde dónde llegas a clase."
+    />
+
+    <div class="entries">
+      {
+        modalities.map((modality, index) => (
+          <article class="entry">
+            <PhotoWindow image={modality.image} ratio="16 / 10" />
+            <div class="entry-text">
+              <h3>{modality.name}</h3>
+              <p>{modality.pitch}</p>
+              <dl>
+                {modality.details.map((detail) => (
+                  <div>
+                    <dt class="data-label">{detail.label}</dt>
+                    <dd>
+                      <Value value={detail.value} fallback="Consúltanos por WhatsApp" />
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <Stamp
+              class="entry-stamp"
+              shape="rect"
+              top="Entrada"
+              main={modality.name}
+              bottom="Ecu593 English"
+              ink={index === 0 ? 'flame' : 'sky'}
+              rotate={index === 0 ? -7 : 6}
+              size="clamp(10rem, 16vw, 13rem)"
+            />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .modalities {
+    padding-block: var(--space-9);
+  }
+  .entries {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+    margin-top: var(--space-8);
+    align-items: start;
+  }
+  .entry:nth-child(2) {
+    margin-top: var(--space-8);
+  }
+  .entry {
+    position: relative;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .entry-text {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 34rem;
+  }
+  h3 {
+    font-size: var(--step-2);
+    color: var(--navy-900);
+  }
+  p {
+    color: var(--ink-soft);
+  }
+  dl {
+    display: grid;
+    gap: var(--space-3);
+    margin: var(--space-2) 0 0;
+    padding-top: var(--space-4);
+    border-top: 1.5px solid var(--rule);
+  }
+  dd {
+    margin: 2px 0 0;
+    font-weight: 500;
+  }
+  .entry :global(.entry-stamp) {
+    position: absolute;
+    right: -0.5rem;
+    top: -1.75rem;
+  }
+
+  @media (max-width: 760px) {
+    .entries {
+      grid-template-columns: 1fr;
+    }
+    .entry:nth-child(2) {
+      margin-top: var(--space-4);
+    }
+  }
+</style>

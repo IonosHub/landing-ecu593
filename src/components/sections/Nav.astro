@@ -1,0 +1,115 @@
+---
+import { site } from '../../config/site';
+import Button from '../ui/Button.astro';
+
+const links = [
+  { href: '#programas', label: 'Programas' },
+  { href: '#metodo', label: 'Método' },
+  { href: '#modalidades', label: 'Modalidades' },
+  { href: '#valores', label: 'Valores' },
+  { href: '#preguntas', label: 'Preguntas' },
+];
+---
+
+<header class="nav">
+  <div class="container bar">
+    <a class="brand" href="#top" aria-label={`${site.name}, inicio`}>
+      <img src={site.logo.src} width={site.logo.width} height={site.logo.height} alt="" />
+      <span class="brand-name">
+        {site.name}
+        <span class="slogan">{site.slogan.join(' · ')}</span>
+      </span>
+    </a>
+    <nav aria-label="Secciones">
+      <ul>
+        {links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+      </ul>
+    </nav>
+    <Button href="#solicitud" class="nav-cta">Inscríbete</Button>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(11 19 48 / 0.9);
+    backdrop-filter: blur(10px) saturate(1.2);
+    border-bottom: 1px solid rgb(185 196 226 / 0.14);
+    color: var(--on-navy);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    min-height: 4.5rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    margin-right: auto;
+  }
+  .brand img {
+    width: 3rem;
+    height: auto;
+    border-radius: 8px;
+    background: #fff;
+    padding: 2px;
+  }
+  .brand-name {
+    display: grid;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 112%;
+    font-size: 1.0625rem;
+    line-height: 1.15;
+  }
+  .slogan {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.625rem;
+    font-stretch: 100%;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sun);
+  }
+  ul {
+    display: flex;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-control);
+    color: var(--on-navy-soft);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+  nav a:hover {
+    color: var(--on-navy);
+    background: rgb(255 255 255 / 0.07);
+  }
+  .bar :global(.nav-cta) {
+    min-height: 2.75rem;
+    padding-block: 0.55em;
+  }
+
+  @media (max-width: 960px) {
+    nav {
+      display: none;
+    }
+  }
+  @media (max-width: 420px) {
+    .slogan {
+      display: none;
+    }
+  }
+</style>

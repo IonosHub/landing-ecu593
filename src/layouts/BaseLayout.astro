@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = `${site.name} | Cursos de inglés para niños, jóvenes y adultos`, description = site.description } =
+  Astro.props;
+const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefined;
+const ogImage = site.url ? new URL(site.logo.src, site.url).href : site.logo.src;
+---
+
+<!doctype html>
+<html lang="es-EC">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#14204a" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_EC" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <script is:inline>
+      // Motion is opt-in: content stays visible without JS or with reduced motion.
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion-ok');
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Shared ink texture for every stamp -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="ink-rough" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="4" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.6" result="rough" />
+        <feTurbulence type="fractalNoise" baseFrequency="1.9" numOctaves="1" seed="9" result="speckle" />
+        <feColorMatrix in="speckle" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.6" result="mask" />
+        <feComposite in="rough" in2="mask" operator="in" />
+      </filter>
+    </svg>
+
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <slot />
+
+    <script>
+      import '../scripts/reveal';
+    </script>
+
+    <style>
+      .skip {
+        position: fixed;
+        top: var(--space-3);
+        left: var(--space-3);
+        z-index: 100;
+        padding: var(--space-2) var(--space-4);
+        background: var(--sun);
+        color: var(--navy-900);
+        font-weight: 700;
+        border-radius: var(--radius-control);
+        transform: translateY(-200%);
+      }
+      .skip:focus {
+        transform: none;
+      }
+    </style>
+  </body>
+</html>
