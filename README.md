@@ -40,6 +40,27 @@ public/
 - **Animaciones (GSAP):** apertura del pasaporte, giros de página, golpes de sello y el contador de niveles, todo en `src/scripts/motion.ts`. Solo corren si el usuario no pidió movimiento reducido; sin JavaScript todo el contenido sigue visible.
 - **SEO / AEO:** título y descripción por idioma, `canonical`, `hreflang` (es-EC, en, x-default), Open Graph y Twitter con `public/og.png`, JSON-LD (`EducationalOrganization`, `Course` ×3, `FAQPage`), `sitemap-index.xml`, `robots.txt` y `llms.txt` (resumen en texto plano para asistentes de IA). Las URLs absolutas y el sitemap necesitan `PUBLIC_SITE_URL`. Los datos pendientes nunca se publican en el JSON-LD.
 
+## Despliegue en Vercel
+
+El proyecto ya está configurado (`vercel.json`): Astro estático, `npm ci`, `npm run build` y salida en `dist/`. Node ≥ 22.12 (lo toma de `engines` en `package.json`).
+
+1. Sube el repo a GitHub (o GitLab/Bitbucket).
+2. En vercel.com: **Add New → Project → Import** el repositorio. Vercel detecta Astro; no cambies los comandos.
+3. En **Settings → Environment Variables** agrega:
+
+   | Variable | Valor | Obligatoria |
+   |---|---|---|
+   | `PUBLIC_API_URL` | URL del backend Ecu593, sin `/v1` | Sí, para que el formulario cree leads |
+   | `PUBLIC_SITE_URL` | Dominio final, ej. `https://ecu593.com` | Recomendada (si falta, usa el dominio de producción de Vercel) |
+   | `PUBLIC_WHATSAPP_NUMBER` | `593963660675` | No (ya es el valor por defecto) |
+   | `PUBLIC_SHOW_PENDING` | `true` solo en *Preview* si quieres revisar los "Dato pendiente" | No |
+
+4. **Deploy.** Si cambias variables después, haz *Redeploy*: se leen en el build.
+5. Dominio propio: **Settings → Domains**. Luego actualiza `PUBLIC_SITE_URL` y redeploy.
+6. Backend: agrega el dominio de la landing al CORS de `ecu593/backend/src/main.ts` (ver PENDIENTES.md), si no el formulario cae siempre a WhatsApp.
+
+`vercel.json` también agrega caché larga para `/_astro/*` (archivos con hash) y cabeceras de seguridad básicas.
+
 ## Diseño
 
 - Contexto de producto: [PRODUCT.md](PRODUCT.md)

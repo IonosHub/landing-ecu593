@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Impeccable review captures
 .impeccable/review/
+
+# Vercel
+.vercel/
