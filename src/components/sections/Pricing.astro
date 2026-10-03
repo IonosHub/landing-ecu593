@@ -1,27 +1,30 @@
 ---
-import { pricing, pricingFallback } from '../../data/pricing';
+import { pricing } from '../../data/pricing';
+import { useDictionary } from '../../i18n';
 import { isPending, showPending } from '../../lib/pending';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Button from '../ui/Button.astro';
 import Value from '../ui/Value.astro';
 
+const t = useDictionary(Astro.currentLocale);
+const copy = t.pricing;
 const known = pricing.filter((item) => !isPending(item.value));
 const rows = showPending ? pricing : known;
 ---
 
 <section class="pricing paper" aria-labelledby="valores">
   <div class="container receipt-wrap">
-    <div class="receipt" data-reveal>
+    <div class="receipt" data-anim="page-turn">
       <div class="receipt-head">
-        <h2 id="valores">Valores</h2>
-        <span class="data-label">Tasas · Ecu593 English</span>
+        <h2 id="valores">{copy.title}</h2>
+        <span class="data-label">{copy.tag}</span>
       </div>
       {
         rows.length > 0 ? (
           <dl class="rows">
             {rows.map((item) => (
               <div class="row">
-                <dt>{item.label}</dt>
+                <dt>{copy.labels[item.id]}</dt>
                 <span class="leader" aria-hidden="true" />
                 <dd class="tabular">
                   <Value value={item.value} />
@@ -31,12 +34,12 @@ const rows = showPending ? pricing : known;
           </dl>
         ) : null
       }
-      {known.length < pricing.length && <p class="note">{pricingFallback}</p>}
+      {known.length < pricing.length && <p class="note">{copy.fallback}</p>}
       <div class="actions">
-        <Button href={buildWhatsAppUrl('Hola, quiero conocer los valores de los cursos de inglés de Ecu593 English.')} variant="whatsapp" external>
-          Pedir valores por WhatsApp
+        <Button href={buildWhatsAppUrl(copy.whatsappMessage)} variant="whatsapp" external>
+          {copy.ctaWhatsapp}
         </Button>
-        <Button href="#solicitud" variant="ghost">Dejar mis datos</Button>
+        <Button href="#solicitud" variant="ghost">{copy.ctaForm}</Button>
       </div>
     </div>
   </div>

@@ -1,32 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Nav from '../components/sections/Nav.astro';
-import Hero from '../components/sections/Hero.astro';
-import Programs from '../components/sections/Programs.astro';
-import Method from '../components/sections/Method.astro';
-import Modalities from '../components/sections/Modalities.astro';
-import Endorsements from '../components/sections/Endorsements.astro';
-import Testimonials from '../components/sections/Testimonials.astro';
-import Pricing from '../components/sections/Pricing.astro';
-import Faq from '../components/sections/Faq.astro';
-import LeadForm from '../components/sections/LeadForm.astro';
-import Footer from '../components/sections/Footer.astro';
-import WhatsAppFab from '../components/WhatsAppFab.astro';
+import Landing from '../components/Landing.astro';
 ---
 
-<BaseLayout>
-  <Nav />
-  <main id="contenido">
-    <Hero />
-    <Programs />
-    <Method />
-    <Modalities />
-    <Endorsements />
-    <Testimonials />
-    <Pricing />
-    <Faq />
-    <LeadForm />
-  </main>
-  <Footer />
-  <WhatsAppFab />
-</BaseLayout>
+<Landing />

@@ -1,5 +1,6 @@
 ---
 import type { ImageRef } from '../../data/types';
+import { useDictionary } from '../../i18n';
 import { showPending } from '../../lib/pending';
 
 /** Die-cut passport photo window. Without a photo it shows what shot belongs here. */
@@ -10,9 +11,10 @@ interface Props {
 }
 
 const { image, ratio = '4 / 5', class: className } = Astro.props;
+const t = useDictionary(Astro.currentLocale);
 ---
 
-<figure class:list={['window', className]} style={`--ratio:${ratio}`}>
+<figure class:list={['window', className]} style={`--ratio:${ratio}`} data-anim="window">
   {
     image.src ? (
       <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
@@ -20,7 +22,7 @@ const { image, ratio = '4 / 5', class: className } = Astro.props;
       <div class="empty" role="img" aria-label={image.alt}>
         {showPending && (
           <>
-            <span class="data-label">Foto pendiente</span>
+            <span class="data-label">{t.photo.pending}</span>
             <span class="brief">{image.brief}</span>
           </>
         )}

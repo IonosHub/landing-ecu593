@@ -1,43 +1,52 @@
 ---
 import '../styles/global.css';
 import { site } from '../config/site';
+import { defaultLocale, localeMeta, localePath, locales, toLocale, useDictionary } from '../i18n';
+import StructuredData from '../components/seo/StructuredData.astro';
 
-interface Props {
-  title?: string;
-  description?: string;
-}
+const locale = toLocale(Astro.currentLocale);
+const t = useDictionary(locale);
+const meta = localeMeta[locale];
+const base = Astro.site;
 
-const { title = `${site.name} | Cursos de inglés para niños, jóvenes y adultos`, description = site.description } =
-  Astro.props;
-const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefined;
-const ogImage = site.url ? new URL(site.logo.src, site.url).href : site.logo.src;
+// Absolute URLs need PUBLIC_SITE_URL (astro.config `site`); without it we fall back to paths.
+const absolute = (path: string) => (base ? new URL(path, base).href : path);
+const canonical = absolute(localePath(locale));
+const ogImage = absolute(site.ogImage.src);
 ---
 
 <!doctype html>
-<html lang="es-EC">
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    {canonical && <link rel="canonical" href={canonical} />}
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    {locales.map((code) => <link rel="alternate" hreflang={localeMeta[code].htmlLang} href={absolute(localePath(code))} />)}
+    <link rel="alternate" hreflang="x-default" href={absolute(localePath(defaultLocale))} />
     <meta name="theme-color" content="#14204a" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_EC" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {locales.filter((code) => code !== locale).map((code) => <meta property="og:locale:alternate" content={localeMeta[code].ogLocale} />)}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(site.ogImage.width)} />
+    <meta property="og:image:height" content={String(site.ogImage.height)} />
+    <meta property="og:image:alt" content={t.meta.ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t.meta.title} />
+    <meta name="twitter:description" content={t.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
 
-    <script is:inline>
-      // Motion is opt-in: content stays visible without JS or with reduced motion.
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.documentElement.classList.add('motion-ok');
-      }
-    </script>
+    <StructuredData />
   </head>
   <body>
     <!-- Shared ink texture for every stamp -->
@@ -51,11 +60,11 @@ const ogImage = site.url ? new URL(site.logo.src, site.url).href : site.logo.src
       </filter>
     </svg>
 
-    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <a class="skip" href="#contenido">{t.a11y.skip}</a>
     <slot />
 
     <script>
-      import '../scripts/reveal';
+      import '../scripts/motion';
     </script>
 
     <style>

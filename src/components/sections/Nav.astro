@@ -1,31 +1,42 @@
 ---
 import { site } from '../../config/site';
+import { localeMeta, localePath, locales, toLocale, useDictionary } from '../../i18n';
 import Button from '../ui/Button.astro';
 
-const links = [
-  { href: '#programas', label: 'Programas' },
-  { href: '#metodo', label: 'Método' },
-  { href: '#modalidades', label: 'Modalidades' },
-  { href: '#valores', label: 'Valores' },
-  { href: '#preguntas', label: 'Preguntas' },
-];
+const locale = toLocale(Astro.currentLocale);
+const t = useDictionary(locale);
 ---
 
 <header class="nav">
   <div class="container bar">
-    <a class="brand" href="#top" aria-label={`${site.name}, inicio`}>
+    <a class="brand" href="#top" aria-label={`${site.name}, ${t.a11y.home}`}>
       <img src={site.logo.src} width={site.logo.width} height={site.logo.height} alt="" />
       <span class="brand-name">
         {site.name}
         <span class="slogan">{site.slogan.join(' · ')}</span>
       </span>
     </a>
-    <nav aria-label="Secciones">
+    <nav aria-label={t.a11y.sections}>
       <ul>
-        {links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        {t.nav.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
       </ul>
     </nav>
-    <Button href="#solicitud" class="nav-cta">Inscríbete</Button>
+    <div class="lang" role="group" aria-label={t.a11y.languageSwitch}>
+      {
+        locales.map((code) =>
+          code === locale ? (
+            <span class="lang-current" aria-current="true" title={localeMeta[code].label}>
+              {localeMeta[code].short}
+            </span>
+          ) : (
+            <a href={localePath(code)} hreflang={localeMeta[code].htmlLang} lang={localeMeta[code].htmlLang} title={localeMeta[code].label}>
+              {localeMeta[code].short}
+            </a>
+          ),
+        )
+      }
+    </div>
+    <Button href="#solicitud" class="nav-cta">{t.nav.cta}</Button>
   </div>
 </header>
 
@@ -97,19 +108,61 @@ const links = [
     color: var(--on-navy);
     background: rgb(255 255 255 / 0.07);
   }
+
+  /* Language switch reads like a two-cell document field */
+  .lang {
+    display: flex;
+    border: 1.5px solid rgb(185 196 226 / 0.35);
+    border-radius: var(--radius-control);
+    overflow: hidden;
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+  .lang > * {
+    display: grid;
+    place-items: center;
+    min-width: 2.5rem;
+    min-height: 2.25rem;
+    padding: 0 var(--space-2);
+  }
+  .lang-current {
+    background: var(--on-navy);
+    color: var(--navy-900);
+    font-weight: 600;
+  }
+  .lang a {
+    color: var(--on-navy-soft);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+  .lang a:hover {
+    color: var(--on-navy);
+    background: rgb(255 255 255 / 0.1);
+  }
+
   .bar :global(.nav-cta) {
     min-height: 2.75rem;
     padding-block: 0.55em;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 1060px) {
     nav {
       display: none;
     }
   }
-  @media (max-width: 420px) {
+  @media (max-width: 480px) {
     .slogan {
       display: none;
+    }
+    .bar {
+      gap: var(--space-3);
+    }
+    .brand-name {
+      display: none;
+    }
+    .bar :global(.nav-cta) {
+      padding-inline: 1em;
     }
   }
 </style>

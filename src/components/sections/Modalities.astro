@@ -1,50 +1,53 @@
 ---
 import { modalities } from '../../data/modalities';
+import { useDictionary } from '../../i18n';
 import PhotoWindow from '../ui/PhotoWindow.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Stamp from '../ui/Stamp.astro';
 import Value from '../ui/Value.astro';
+
+const t = useDictionary(Astro.currentLocale);
+const copy = t.modalities;
 ---
 
 <section class="modalities paper" aria-labelledby="modalidades">
   <div class="container">
-    <SectionHeading
-      id="modalidades"
-      title="Presencial u online, tú eliges la entrada"
-      lead="La ruta, los niveles y la evaluación son los mismos. Cambia desde dónde llegas a clase."
-    />
+    <SectionHeading id="modalidades" title={copy.title} lead={copy.lead} />
 
     <div class="entries">
       {
-        modalities.map((modality, index) => (
-          <article class="entry">
-            <PhotoWindow image={modality.image} ratio="16 / 10" />
-            <div class="entry-text">
-              <h3>{modality.name}</h3>
-              <p>{modality.pitch}</p>
-              <dl>
-                {modality.details.map((detail) => (
-                  <div>
-                    <dt class="data-label">{detail.label}</dt>
-                    <dd>
-                      <Value value={detail.value} fallback="Consúltanos por WhatsApp" />
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-            <Stamp
-              class="entry-stamp"
-              shape="rect"
-              top="Entrada"
-              main={modality.name}
-              bottom="Ecu593 English"
-              ink={index === 0 ? 'flame' : 'sky'}
-              rotate={index === 0 ? -7 : 6}
-              size="clamp(10rem, 16vw, 13rem)"
-            />
-          </article>
-        ))
+        modalities.map((modality, index) => {
+          const item = copy.items[modality.id];
+          return (
+            <article class="entry">
+              <PhotoWindow image={{ src: modality.photo, alt: item.imageAlt, brief: item.imageBrief }} ratio="16 / 10" />
+              <div class="entry-text">
+                <h3>{item.name}</h3>
+                <p>{item.pitch}</p>
+                <dl>
+                  {item.details.map((detail) => (
+                    <div>
+                      <dt class="data-label">{detail.label}</dt>
+                      <dd>
+                        <Value value={detail.value} fallback={copy.detailFallback} />
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <Stamp
+                class="entry-stamp"
+                shape="rect"
+                top={copy.entry}
+                main={item.name}
+                bottom="Ecu593 English"
+                ink={modality.stampInk}
+                rotate={index === 0 ? -7 : 6}
+                size="clamp(10rem, 16vw, 13rem)"
+              />
+            </article>
+          );
+        })
       }
     </div>
   </div>

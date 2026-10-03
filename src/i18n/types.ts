@@ -1,0 +1,175 @@
+import type { Maybe } from '../lib/pending';
+import type { ModalityId, PriceId, ProgramId } from '../data/types';
+
+interface StampText {
+  top: string;
+  main: string;
+  bottom: string;
+}
+
+/**
+ * Every visible string on the landing. One file per language (es.ts, en.ts) implements it,
+ * so a missing translation is a type error.
+ */
+export interface Dictionary {
+  meta: {
+    title: string;
+    description: string;
+    ogImageAlt: string;
+  };
+  a11y: {
+    skip: string;
+    sections: string;
+    home: string;
+    languageSwitch: string;
+  };
+  nav: {
+    links: { href: string; label: string }[];
+    cta: string;
+  };
+  hero: {
+    title: string;
+    sub: string;
+    ctaPrimary: string;
+    ctaWhatsapp: string;
+    passportLabel: string;
+    docHead: [string, string];
+    idLabels: { type: string; code: string; number: string };
+    fields: { label: string; value: string }[];
+    mrz: [string, string];
+    stamps: { slogan: StampText; entry: StampText; modality: StampText };
+    cover: { country: string; title: string; subtitle: string };
+  };
+  programs: {
+    title: string;
+    lead: string;
+    band: string;
+    labels: { audience: string; ages: string; modality: string };
+    modalityValue: string;
+    agesFallback: string;
+    cta: (name: string) => string;
+    stampTop: string;
+    items: Record<
+      ProgramId,
+      {
+        name: string;
+        audience: string;
+        ages: Maybe<string>;
+        pitch: string;
+        focus: string[];
+        imageAlt: string;
+        imageBrief: string;
+      }
+    >;
+  };
+  method: {
+    title: string;
+    lead: string;
+    counterLabel: string;
+    weeksOf: string;
+    levelLabel: string;
+    weeksRange: (from: number, to: number) => string;
+    stamp: { top: (level: string) => string; main: string; bottom: (week: number) => string };
+    evaluation: { label: string; value: string }[];
+    levelContent: Maybe<string>;
+  };
+  modalities: {
+    title: string;
+    lead: string;
+    entry: string;
+    detailFallback: string;
+    items: Record<
+      ModalityId,
+      {
+        name: string;
+        pitch: string;
+        details: { label: string; value: Maybe<string> }[];
+        imageAlt: string;
+        imageBrief: string;
+      }
+    >;
+  };
+  endorsements: {
+    title: string;
+    lead: string;
+    items: { title: string; body: Maybe<string> }[];
+  };
+  testimonials: {
+    title: string;
+    pendingNote: string;
+  };
+  pricing: {
+    title: string;
+    tag: string;
+    labels: Record<PriceId, string>;
+    fallback: string;
+    ctaWhatsapp: string;
+    ctaForm: string;
+    whatsappMessage: string;
+  };
+  faq: {
+    title: string;
+    more: string;
+    moreLink: string;
+    whatsappMessage: string;
+    items: { question: string; answer: Maybe<string> }[];
+  };
+  form: {
+    title: string;
+    lead: string;
+    steps: string[];
+    alt: string;
+    altCta: string;
+    band: [string, string];
+    fields: {
+      firstName: string;
+      lastName: string;
+      phone: string;
+      email: string;
+      emailPlaceholder: string;
+      program: string;
+      programPlaceholder: string;
+      programUnsure: string;
+      modality: string;
+      modalityAny: string;
+      message: string;
+      messagePlaceholder: string;
+    };
+    submit: string;
+    noscript: string;
+    noscriptLink: string;
+    stamp: StampText;
+    /** Strings used by the client script (scripts/lead-form.ts). */
+    client: {
+      phoneInvalid: string;
+      sending: string;
+      success: string;
+      successDetail: string;
+      error: string;
+      errorLink: string;
+      errorTail: string;
+      whatsappFallback: string;
+    };
+  };
+  footer: {
+    closing: string;
+    ctaPrimary: string;
+    ctaWhatsapp: string;
+    contact: string;
+    social: string;
+    rights: string;
+  };
+  whatsapp: {
+    greeting: string;
+    fab: string;
+    fabLabel: string;
+    chat: string;
+  };
+  photo: {
+    pending: string;
+  };
+  pending: {
+    tag: string;
+    title: string;
+  };
+}

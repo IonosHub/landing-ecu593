@@ -380,7 +380,7 @@
       {
         "name": "page-turn",
         "value": "perspective(1600px) rotateY(-24deg) desde el lomo izquierdo, clip-path que se abre, 1100ms",
-        "purpose": "Entrada de hojas con data-reveal."
+        "purpose": "Entrada de hojas con data-anim=\"page-turn\" (GSAP ScrollTrigger)."
       },
       {
         "name": "ticket-press",
@@ -389,7 +389,7 @@
       },
       {
         "name": "reduced-motion",
-        "value": ".motion-ok solo si no hay prefers-reduced-motion; estado final impreso por defecto",
+        "value": "gsap.matchMedia(prefers-reduced-motion: no-preference) en src/scripts/motion.ts; estado final impreso por defecto",
         "purpose": "Todo movimiento es opcional."
       }
     ],
@@ -591,7 +591,7 @@
       "**Do** usar el boleto `sun` para la acción de inscripción y el boleto `whatsapp` solo para el chat.",
       "**Do** apoyar cada hoja con `--shadow-page` más `inset 0 0 0 1px var(--paper-edge)`.",
       "**Do** declarar todo dato desconocido con `pending()` y mostrarlo con `Value`; listarlo en PENDIENTES.md.",
-      "**Do** condicionar todo movimiento a `.motion-ok` y dejar el estado final impreso por defecto."
+      "**Do** condicionar todo movimiento al `gsap.matchMedia` de `motion.ts` y dejar el estado final impreso por defecto."
     ],
     "donts": [
       "**Don't** usar fondos blancos de sección; el blanco solo aparece como placa del logo y texto del boleto WhatsApp.",

@@ -1,0 +1,115 @@
+---
+/**
+ * schema.org JSON-LD for search engines and answer engines (AEO).
+ * Only confirmed facts are emitted: pending() values are skipped, never guessed.
+ */
+import { site } from '../../config/site';
+import { programs } from '../../data/programs';
+import { TOTAL_WEEKS } from '../../data/method';
+import { localeMeta, localePath, toLocale, useDictionary } from '../../i18n';
+import { isPending } from '../../lib/pending';
+
+const locale = toLocale(Astro.currentLocale);
+const t = useDictionary(locale);
+const base = Astro.site;
+
+const absolute = (path: string) => (base ? new URL(path, base).href : path);
+const pageUrl = absolute(localePath(locale));
+const orgId = absolute('/#organization');
+const websiteId = absolute('/#website');
+const known = <T,>(value: T) => (isPending(value) ? undefined : value);
+
+const sameAs = site.social.map((link) => known(link.url)).filter(Boolean);
+const address = known(site.address);
+const city = known(site.city);
+
+const organization = {
+  '@type': 'EducationalOrganization',
+  '@id': orgId,
+  name: site.name,
+  alternateName: site.legalName,
+  url: base ? base.href : undefined,
+  logo: absolute(site.logo.src),
+  image: absolute(site.ogImage.src),
+  slogan: site.slogan.join(' · '),
+  description: t.meta.description,
+  areaServed: { '@type': 'Country', name: 'Ecuador' },
+  knowsLanguage: ['es', 'en'],
+  email: known(site.email),
+  telephone: `+${site.whatsapp.number}`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'admissions',
+    telephone: `+${site.whatsapp.number}`,
+    url: `https://wa.me/${site.whatsapp.number}`,
+    availableLanguage: ['Spanish', 'English'],
+  },
+  address:
+    address || city
+      ? { '@type': 'PostalAddress', streetAddress: address, addressLocality: city, addressCountry: 'EC' }
+      : undefined,
+  sameAs: sameAs.length > 0 ? sameAs : undefined,
+};
+
+const courses = programs.map((program) => {
+  const item = t.programs.items[program.id];
+  return {
+    '@type': 'Course',
+    '@id': `${pageUrl}#course-${program.id}`,
+    name: `${t.programs.band} ${item.name} · ${site.name}`,
+    description: item.pitch,
+    provider: { '@id': orgId },
+    inLanguage: 'en',
+    teaches: item.focus,
+    timeRequired: `P${TOTAL_WEEKS}W`,
+    audience: { '@type': 'EducationalAudience', audienceType: item.audience },
+    hasCourseInstance: [
+      { '@type': 'CourseInstance', courseMode: 'Onsite' },
+      { '@type': 'CourseInstance', courseMode: 'Online' },
+    ],
+  };
+});
+
+const answered = t.faq.items.filter((faq) => !isPending(faq.answer));
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organization,
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      url: base ? base.href : undefined,
+      name: site.name,
+      inLanguage: Object.values(localeMeta).map((meta) => meta.htmlLang),
+      publisher: { '@id': orgId },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: t.meta.title,
+      description: t.meta.description,
+      inLanguage: localeMeta[locale].htmlLang,
+      isPartOf: { '@id': websiteId },
+      about: { '@id': orgId },
+      primaryImageOfPage: absolute(site.ogImage.src),
+    },
+    ...courses,
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      inLanguage: localeMeta[locale].htmlLang,
+      mainEntity: answered.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    },
+  ],
+};
+
+const json = JSON.stringify(graph).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" set:html={json} />

@@ -305,7 +305,13 @@ Marco troquelado de 10px de radio y 11px de margen con roseta de guilloché sobr
 Marcador de dato desconocido: borde discontinuo de 1.5px en `flame`, fondo `flame` al 6%, texto `flame-text`, etiqueta "Dato pendiente" en Martian Mono 0.65rem mayúsculas. Visible solo en desarrollo o con `PUBLIC_SHOW_PENDING=true`; en producción muestra el texto de respaldo o nada, y las secciones que dependen solo de datos pendientes no se publican.
 
 ### Motion
-Curvas `--ease-out` (`cubic-bezier(0.16, 1, 0.3, 1)`) y `--ease-thump` (`cubic-bezier(0.22, 1, 0.36, 1)`); duraciones `--dur-fast` 180ms (estados), `--dur-base` 420ms (barra de progreso), `--dur-slow` 900ms y 1100ms (giro de página). Las hojas marcadas con `data-reveal` entran girando desde su lomo (`rotateY(-24deg)` con recorte que se abre). Todo el movimiento depende de la clase `.motion-ok`, que solo se activa si no hay preferencia de movimiento reducido.
+Coreografía con GSAP (`src/scripts/motion.ts`, ScrollTrigger + SplitText), activada solo dentro de `gsap.matchMedia('(prefers-reduced-motion: no-preference)')`, que agrega la clase `.gsap-on` a `<html>`. Sin JavaScript o con movimiento reducido todo queda impreso y estático.
+- **Apertura del pasaporte** (hero): la portada azul con emblema dorado (`[data-book-cover]`) gira 180° sobre el lomo mientras el libro se desplaza a su sitio; luego aparecen los campos de la página de datos, el titular palabra por palabra y los tres sellos. En móvil la portada se levanta (rotateY −100°). La portada se mantiene opaca durante el giro: opacidad < 1 aplana el 3D.
+- **Giro de página** (`data-anim="page-turn"`: visas, hoja de valores, formulario): entran girando desde su borde izquierdo (`rotationY −26°`, perspectiva 1600px).
+- **Golpe de sello** (`[data-stamp]`): aparece grande y desenfocado y asienta en su rotación impresa (power4.out, 0.55s).
+- **Ruta de niveles**: cada nivel se sella al entrar y el contador `n/12` y la barra tricolor lo siguen.
+- Revelados discretos: filas (`data-anim="row"`), ventanas de foto (recorte de abajo hacia arriba) y el titular de cierre.
+Curvas CSS para estados: `--ease-out` y `--ease-thump`; duraciones `--dur-fast` 180ms y `--dur-base` 420ms.
 
 ## Do's and Don'ts
 
@@ -316,7 +322,7 @@ Curvas `--ease-out` (`cubic-bezier(0.16, 1, 0.3, 1)`) y `--ease-thump` (`cubic-b
 - **Do** usar el boleto `sun` para la acción de inscripción y el boleto `whatsapp` solo para el chat.
 - **Do** apoyar cada hoja con `--shadow-page` más `inset 0 0 0 1px var(--paper-edge)`.
 - **Do** declarar todo dato desconocido con `pending()` y mostrarlo con `Value`; listarlo en PENDIENTES.md.
-- **Do** condicionar todo movimiento a `.motion-ok` y dejar el estado final impreso por defecto.
+- **Do** condicionar todo movimiento al `gsap.matchMedia` de `motion.ts` y dejar el estado final impreso por defecto.
 
 ### Don't:
 - **Don't** usar fondos blancos de sección; el blanco solo aparece como placa del logo y texto del boleto WhatsApp.

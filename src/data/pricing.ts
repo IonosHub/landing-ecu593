@@ -1,11 +1,10 @@
-import { pending } from '../lib/pending';
-import type { PriceItem } from './types';
+import { pending, type Maybe } from '../lib/pending';
+import type { PriceId } from './types';
 
-export const pricing: PriceItem[] = [
-  { label: 'Matrícula', value: pending('Valor de la matrícula') },
-  { label: 'Valor por nivel', value: pending('Valor de cada nivel de 4 semanas') },
-  { label: 'Formas de pago', value: pending('Formas de pago aceptadas') },
-  { label: 'Promociones', value: pending('Promociones o descuentos vigentes') },
+/** Fee values (labels live in src/i18n). Replace pending() with the real value, e.g. '$45'. */
+export const pricing: { id: PriceId; value: Maybe<string> }[] = [
+  { id: 'enrollment', value: pending('Valor de la matrícula') },
+  { id: 'level', value: pending('Valor de cada nivel de 4 semanas') },
+  { id: 'payment', value: pending('Formas de pago aceptadas') },
+  { id: 'promotions', value: pending('Promociones o descuentos vigentes') },
 ];
-
-export const pricingFallback = 'Escríbenos y te enviamos los valores y promociones vigentes.';

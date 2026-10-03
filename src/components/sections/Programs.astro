@@ -1,6 +1,6 @@
 ---
 import { programs } from '../../data/programs';
-import { LEVEL_COUNT, WEEKS_PER_LEVEL } from '../../data/method';
+import { useDictionary } from '../../i18n';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import Mrz from '../ui/Mrz.astro';
@@ -8,72 +8,79 @@ import PhotoWindow from '../ui/PhotoWindow.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Stamp from '../ui/Stamp.astro';
 import Value from '../ui/Value.astro';
+
+const t = useDictionary(Astro.currentLocale);
+const copy = t.programs;
+const tilts = [-0.8, 0.6, -0.4];
+const stampRotations = [14, -10, 8];
 ---
 
 <section class="programs paper" aria-labelledby="programas">
   <div class="container">
-    <SectionHeading
-      id="programas"
-      title="Una visa para cada edad"
-      lead={`Kids, Teens y Adultos siguen la misma ruta de ${LEVEL_COUNT} niveles de ${WEEKS_PER_LEVEL} semanas. Elige la que va contigo o con tus hijos.`}
-    />
+    <SectionHeading id="programas" title={copy.title} lead={copy.lead} />
 
     <ol class="visas">
       {
-        programs.map((program, index) => (
-          <li class="visa" style={`--tilt:${[-0.8, 0.6, -0.4][index]}deg`} data-reveal>
-            <div class="visa-band">
-              <span>
-                Visa de estudio<span class="band-name"> · {program.name}</span>
-              </span>
-              <span class="tabular code">ECU593-{program.code}</span>
-            </div>
-            <div class="visa-body">
-              <PhotoWindow image={program.image} ratio="4 / 5" class="visa-photo" />
-              <div class="visa-data">
-                <h3>{program.name}</h3>
-                <dl class="facts">
-                  <div>
-                    <dt class="data-label">Para</dt>
-                    <dd>{program.audience}</dd>
-                  </div>
-                  <div>
-                    <dt class="data-label">Edades</dt>
-                    <dd>
-                      <Value value={program.ages} fallback="Consúltanos" />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt class="data-label">Modalidad</dt>
-                    <dd>Presencial · Online</dd>
-                  </div>
-                </dl>
-                <p class="pitch">{program.pitch}</p>
-                <ul class="focus">
-                  {program.focus.map((item) => (
-                    <li>
-                      <Icon name="check" size={18} />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button href="#solicitud" data-program={program.name}>
-                  Quiero {program.name}
-                </Button>
+        programs.map((program, index) => {
+          const item = copy.items[program.id];
+          return (
+            <li class="visa" style={`--tilt:${tilts[index]}deg`} data-anim="page-turn">
+              <div class="visa-band">
+                <span>
+                  {copy.band}
+                  <span class="band-name"> · {item.name}</span>
+                </span>
+                <span class="tabular code">ECU593-{program.code}</span>
               </div>
-            </div>
-            <Mrz lines={[`V<ECU593<<${program.name}<<${program.audience}`, `VISA<${program.code}<<12<NIVELES<<4<SEMANAS<C-U`]} class="visa-mrz" />
-            <Stamp
-              class="visa-stamp"
-              top="Visa aprobada"
-              main={program.code}
-              bottom={program.name}
-              ink={program.stampInk}
-              rotate={[14, -10, 8][index]}
-              size="clamp(6.5rem, 10vw, 8.5rem)"
-            />
-          </li>
-        ))
+              <div class="visa-body">
+                <PhotoWindow image={{ src: program.photo, alt: item.imageAlt, brief: item.imageBrief }} ratio="4 / 5" class="visa-photo" />
+                <div class="visa-data">
+                  <h3>{item.name}</h3>
+                  <dl class="facts">
+                    <div>
+                      <dt class="data-label">{copy.labels.audience}</dt>
+                      <dd>{item.audience}</dd>
+                    </div>
+                    <div>
+                      <dt class="data-label">{copy.labels.ages}</dt>
+                      <dd>
+                        <Value value={item.ages} fallback={copy.agesFallback} />
+                      </dd>
+                    </div>
+                    <div>
+                      <dt class="data-label">{copy.labels.modality}</dt>
+                      <dd>{copy.modalityValue}</dd>
+                    </div>
+                  </dl>
+                  <p class="pitch">{item.pitch}</p>
+                  <ul class="focus">
+                    {item.focus.map((focus) => (
+                      <li>
+                        <Icon name="check" size={18} />
+                        {focus}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button href="#solicitud" data-program={item.name}>
+                    {copy.cta(item.name)}
+                  </Button>
+                </div>
+              </div>
+              <div class="visa-mrz">
+                <Mrz lines={[`V<ECU593<<${item.name}<<${item.audience}`, `VISA<${program.code}<<12<4<<ECU593<ENGLISH`]} />
+              </div>
+              <Stamp
+                class="visa-stamp"
+                top={copy.stampTop}
+                main={program.code}
+                bottom={item.name}
+                ink={program.stampInk}
+                rotate={stampRotations[index]}
+                size="clamp(6.5rem, 10vw, 8.5rem)"
+              />
+            </li>
+          );
+        })
       }
     </ol>
   </div>

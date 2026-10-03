@@ -1,9 +1,11 @@
 ---
 import { testimonials } from '../../data/testimonials';
+import { useDictionary } from '../../i18n';
 import { showPending } from '../../lib/pending';
 import PhotoWindow from '../ui/PhotoWindow.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 
+const t = useDictionary(Astro.currentLocale);
 const hasContent = testimonials.length > 0;
 ---
 
@@ -11,7 +13,7 @@ const hasContent = testimonials.length > 0;
   (hasContent || showPending) && (
     <section class="testimonials paper" aria-labelledby="historias">
       <div class="container">
-        <SectionHeading id="historias" title="Historias de quienes ya tienen sellos" />
+        <SectionHeading id="historias" title={t.testimonials.title} />
         {hasContent ? (
           <ul class="quotes">
             {testimonials.map((item) => (
@@ -29,10 +31,8 @@ const hasContent = testimonials.length > 0;
           </ul>
         ) : (
           <p class="slot">
-            <span class="data-label">Dato pendiente</span>
-            <span>
-              Agrega testimonios reales (con permiso) en <code>src/data/testimonials.ts</code>. Mientras la lista esté vacía, esta sección no se publica.
-            </span>
+            <span class="data-label">{t.pending.tag}</span>
+            <span>{t.testimonials.pendingNote}</span>
           </p>
         )}
       </div>

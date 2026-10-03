@@ -1,25 +1,22 @@
 ---
-import { endorsements } from '../../data/endorsements';
+import { useDictionary } from '../../i18n';
 import { isPending, showPending } from '../../lib/pending';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Value from '../ui/Value.astro';
 
+const t = useDictionary(Astro.currentLocale);
+const copy = t.endorsements;
 // Pending endorsements only appear while there is someone to fill them in.
-const visible = endorsements.filter((item) => showPending || !isPending(item.body));
+const visible = copy.items.filter((item) => showPending || !isPending(item.body));
 ---
 
 <section class="endorsements" aria-labelledby="incluye">
   <div class="container">
-    <SectionHeading
-      id="incluye"
-      tone="navy"
-      title="Lo que viene con tu pasaporte"
-      lead="Ecu593 trabaja con su propio sistema académico. Eso se nota en cosas concretas."
-    />
+    <SectionHeading id="incluye" tone="navy" title={copy.title} lead={copy.lead} />
     <dl class="list">
       {
         visible.map((item) => (
-          <div class="row">
+          <div class="row" data-anim="row">
             <dt>{item.title}</dt>
             <dd>
               <Value value={item.body} />

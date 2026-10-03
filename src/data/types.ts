@@ -1,5 +1,10 @@
 import type { Maybe } from '../lib/pending';
 
+export type ProgramId = 'kids' | 'teens' | 'adultos';
+export type ModalityId = 'presencial' | 'online';
+export type PriceId = 'enrollment' | 'level' | 'payment' | 'promotions';
+export type StampInk = 'flame' | 'sky' | 'violet' | 'navy';
+
 /** A photo slot. Without `src` it renders as an empty photo window describing the shot. */
 export interface ImageRef {
   src?: string;
@@ -8,16 +13,19 @@ export interface ImageRef {
   brief: string;
 }
 
+/** Language-neutral facts; copy lives in src/i18n. */
 export interface Program {
-  id: 'kids' | 'teens' | 'adultos';
-  name: string;
+  id: ProgramId;
   code: string;
-  audience: string;
-  ages: Maybe<string>;
-  pitch: string;
-  focus: string[];
-  image: ImageRef;
-  stampInk: 'flame' | 'sky' | 'violet';
+  stampInk: StampInk;
+  /** Path under /public, e.g. "/imgs/kids.jpg". Shared by every language. */
+  photo?: string;
+}
+
+export interface Modality {
+  id: ModalityId;
+  stampInk: StampInk;
+  photo?: string;
 }
 
 export interface Level {
@@ -27,32 +35,9 @@ export interface Level {
   cefr: Maybe<string>;
 }
 
-export interface Modality {
-  id: 'presencial' | 'online';
-  name: string;
-  pitch: string;
-  details: { label: string; value: Maybe<string> }[];
-  image: ImageRef;
-}
-
-export interface Endorsement {
-  title: string;
-  body: Maybe<string>;
-}
-
-export interface Faq {
-  question: string;
-  answer: Maybe<string>;
-}
-
 export interface Testimonial {
   quote: string;
   name: string;
   role: string;
   image?: ImageRef;
-}
-
-export interface PriceItem {
-  label: string;
-  value: Maybe<string>;
 }

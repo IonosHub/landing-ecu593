@@ -2,7 +2,7 @@ import { pending, type Maybe } from '../lib/pending';
 
 /**
  * Single source for brand and contact data. Edit here, not in components.
- * Values that come from the environment are documented in .env.example.
+ * The public site URL is configured as PUBLIC_SITE_URL (see .env.example) and read via Astro.site.
  */
 
 export interface SocialLink {
@@ -14,16 +14,13 @@ export const site = {
   name: 'Ecu593 English',
   legalName: 'Ecu593 English School',
   slogan: ['Learn', 'Grow', 'Achieve'] as const,
-  description:
-    'Cursos de inglés para niños, adolescentes y adultos en Ecuador. 12 niveles de 4 semanas, presencial u online.',
-  url: import.meta.env.PUBLIC_SITE_URL as string | undefined,
   apiUrl: (import.meta.env.PUBLIC_API_URL as string | undefined) ?? '',
   logo: { src: '/imgs/logo_oficial.jpg', width: 557, height: 485 },
+  ogImage: { src: '/og.png', width: 1200, height: 630 },
 
   whatsapp: {
     number: (import.meta.env.PUBLIC_WHATSAPP_NUMBER as string | undefined) ?? '593963660675',
     display: '096 366 0675',
-    greeting: 'Hola, quiero información sobre los cursos de inglés de Ecu593 English.',
   },
 
   email: pending('Correo de contacto de la escuela') as Maybe<string>,

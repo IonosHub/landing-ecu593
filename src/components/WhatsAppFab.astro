@@ -1,11 +1,14 @@
 ---
+import { useDictionary } from '../i18n';
 import { buildWhatsAppUrl } from '../lib/whatsapp';
 import Icon from './ui/Icon.astro';
+
+const t = useDictionary(Astro.currentLocale);
 ---
 
-<a class="fab" href={buildWhatsAppUrl()} target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+<a class="fab" href={buildWhatsAppUrl(t.whatsapp.greeting)} target="_blank" rel="noopener" aria-label={t.whatsapp.fabLabel} data-fab>
   <Icon name="whatsapp" size={26} />
-  <span class="label">¿Dudas? Escríbenos</span>
+  <span class="label">{t.whatsapp.fab}</span>
 </a>
 
 <style>
@@ -29,15 +32,6 @@ import Icon from './ui/Icon.astro';
   }
   .fab:hover {
     transform: translateY(-3px);
-  }
-  :global(.motion-ok) .fab {
-    animation: fab-in 700ms var(--ease-out) 1.6s both;
-  }
-  @keyframes fab-in {
-    from {
-      opacity: 0;
-      transform: translateY(24px) scale(0.9);
-    }
   }
   @media (max-width: 640px) {
     .fab {

@@ -1,9 +1,12 @@
 ---
-import { evaluation, levelContent, levels, LEVEL_COUNT, TOTAL_WEEKS, WEEKS_PER_LEVEL } from '../../data/method';
+import { levels, LEVEL_COUNT, TOTAL_WEEKS, WEEKS_PER_LEVEL } from '../../data/method';
+import { useDictionary } from '../../i18n';
 import { isPending } from '../../lib/pending';
 import Stamp from '../ui/Stamp.astro';
 import Value from '../ui/Value.astro';
 
+const t = useDictionary(Astro.currentLocale);
+const copy = t.method;
 const inks = ['flame', 'sky', 'violet', 'navy'] as const;
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
@@ -12,25 +15,23 @@ const pad = (n: number) => String(n).padStart(2, '0');
   <div class="container layout">
     <div class="aside">
       <div class="aside-inner">
-        <h2 id="metodo">{LEVEL_COUNT} niveles. Un sello por cada uno.</h2>
-        <p class="lead">
-          Cada nivel dura {WEEKS_PER_LEVEL} semanas y termina con una evaluación. Si apruebas, ganas el sello y pasas al siguiente. En {TOTAL_WEEKS} semanas completas la ruta.
-        </p>
+        <h2 id="metodo">{copy.title}</h2>
+        <p class="lead">{copy.lead}</p>
 
-        <div class="counter" aria-live="polite">
-          <span class="data-label">Tu pasaporte</span>
+        <div class="counter" data-counter data-weeks-per-level={WEEKS_PER_LEVEL}>
+          <span class="data-label">{copy.counterLabel}</span>
           <p class="count tabular">
             <span data-stamp-count>{pad(LEVEL_COUNT)}</span><span class="of">/{LEVEL_COUNT}</span>
           </p>
           <p class="weeks tabular">
-            <span data-week-count>{TOTAL_WEEKS}</span> de {TOTAL_WEEKS} semanas
+            <span data-week-count>{TOTAL_WEEKS}</span>{' '}{copy.weeksOf}
           </p>
           <div class="track" aria-hidden="true"><span data-track></span></div>
         </div>
 
         <dl class="rules">
           {
-            evaluation.map((rule) => (
+            copy.evaluation.map((rule) => (
               <div>
                 <dt class="data-label">{rule.label}</dt>
                 <dd>{rule.value}</dd>
@@ -38,26 +39,24 @@ const pad = (n: number) => String(n).padStart(2, '0');
             ))
           }
         </dl>
-        {isPending(levelContent) && <p class="content-note"><Value value={levelContent} /></p>}
+        {isPending(copy.levelContent) && <p class="content-note"><Value value={copy.levelContent} /></p>}
       </div>
     </div>
 
-    <ol class="pages" data-level-pages data-weeks-per-level={WEEKS_PER_LEVEL}>
+    <ol class="pages" data-level-pages>
       {
         levels.map((level, index) => (
-          <li class="level">
-            <span class="data-label">Nivel</span>
+          <li class="level" data-level>
+            <span class="data-label">{copy.levelLabel}</span>
             <span class="number tabular">{pad(level.number)}</span>
-            <span class="range tabular">
-              Semanas {level.weekFrom}–{level.weekTo}
-            </span>
+            <span class="range tabular">{copy.weeksRange(level.weekFrom, level.weekTo)}</span>
             {!isPending(level.cefr) && <span class="cefr">{level.cefr}</span>}
             <Stamp
               class="level-stamp"
               shape={index % 3 === 1 ? 'rect' : 'circle'}
-              top={`Nivel ${pad(level.number)}`}
-              main="Aprobado"
-              bottom={`Semana ${level.weekTo}`}
+              top={copy.stamp.top(pad(level.number))}
+              main={copy.stamp.main}
+              bottom={copy.stamp.bottom(level.weekTo)}
               ink={inks[index % inks.length]}
               rotate={[-9, 6, -4, 11, -13, 3][index % 6]}
               size={index % 3 === 1 ? '9.5rem' : '7.75rem'}
@@ -68,27 +67,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
     </ol>
   </div>
 </section>
-
-<script>
-  // Counter follows the stamps as they land; without motion it stays at the full 12/12.
-  const pages = document.querySelector<HTMLElement>('[data-level-pages]');
-  const count = document.querySelector<HTMLElement>('[data-stamp-count]');
-  const weeks = document.querySelector<HTMLElement>('[data-week-count]');
-  const track = document.querySelector<HTMLElement>('[data-track]');
-
-  if (pages && count && weeks && track && document.documentElement.classList.contains('motion-ok')) {
-    const stamps = [...pages.querySelectorAll<HTMLElement>('[data-stamp]')];
-    const total = stamps.length;
-    const render = () => {
-      const inked = stamps.filter((stamp) => stamp.classList.contains('is-inked')).length;
-      count.textContent = String(inked).padStart(2, '0');
-      weeks.textContent = String(inked * Number(pages.dataset.weeksPerLevel));
-      track.style.setProperty('--progress', String(inked / total));
-    };
-    render();
-    new MutationObserver(render).observe(pages, { subtree: true, attributeFilter: ['class'] });
-  }
-</script>
 
 <style>
   .method {

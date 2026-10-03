@@ -1,12 +1,13 @@
 ---
+import type { StampInk } from '../../data/types';
+
 /**
- * Rubber stamp, the world's primary mark. `data-stamp` makes it thump in when it
- * scrolls into view (see scripts/reveal.ts); without JS or with reduced motion it
- * is simply printed.
+ * Rubber stamp, the world's primary mark. `data-stamp` lets scripts/motion.ts thump it in
+ * when it scrolls into view; without JS or with reduced motion it is simply printed.
  */
 interface Props {
   shape?: 'circle' | 'rect';
-  ink?: 'flame' | 'sky' | 'violet' | 'navy';
+  ink?: StampInk;
   /** Circle: text around the top arc. Rect: small line above the main text. */
   top?: string;
   main: string;
@@ -30,7 +31,8 @@ const {
   class: className,
 } = Astro.props;
 
-const uid = `s${Math.random().toString(36).slice(2, 8)}`;
+let counter = 0;
+const uid = `stamp-${(counter += 1)}-${main.replace(/\W/g, '')}-${Math.abs(rotate)}`;
 ---
 
 <span
@@ -121,30 +123,4 @@ const uid = `s${Math.random().toString(36).slice(2, 8)}`;
   .shape-circle .main.short { font-size: 50px; }
   .shape-rect .main { font-size: 40px; letter-spacing: 0.04em; }
 
-  :global(.motion-ok) [data-stamp] {
-    opacity: 0;
-    transform: rotate(calc(var(--rotate) + 10deg)) scale(1.7);
-    filter: blur(3px);
-  }
-  :global(.motion-ok) [data-stamp].is-inked {
-    animation: thump 520ms var(--ease-thump) var(--stamp-delay, 0ms) forwards;
-  }
-
-  @keyframes thump {
-    0% {
-      opacity: 0;
-      transform: rotate(calc(var(--rotate) + 10deg)) scale(1.7);
-      filter: blur(3px);
-    }
-    55% {
-      opacity: 0.95;
-      transform: rotate(var(--rotate)) scale(0.94);
-      filter: blur(0);
-    }
-    100% {
-      opacity: 0.88;
-      transform: rotate(var(--rotate)) scale(1);
-      filter: blur(0);
-    }
-  }
 </style>

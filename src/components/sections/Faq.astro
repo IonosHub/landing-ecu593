@@ -1,20 +1,22 @@
 ---
-import { faqs } from '../../data/faqs';
+import { useDictionary } from '../../i18n';
 import { isPending, showPending } from '../../lib/pending';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Icon from '../ui/Icon.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Value from '../ui/Value.astro';
 
-const visible = faqs.filter((faq) => showPending || !isPending(faq.answer));
+const t = useDictionary(Astro.currentLocale);
+const copy = t.faq;
+const visible = copy.items.filter((faq) => showPending || !isPending(faq.answer));
 ---
 
 <section class="faq paper" aria-labelledby="preguntas">
   <div class="container layout">
     <div>
-      <SectionHeading id="preguntas" title="Preguntas antes de tu primer sello" />
+      <SectionHeading id="preguntas" title={copy.title} />
       <p class="more">
-        ¿No está tu pregunta? <a href={buildWhatsAppUrl('Hola, tengo una pregunta sobre los cursos de Ecu593 English.')} target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.
+        {copy.more} <a href={buildWhatsAppUrl(copy.whatsappMessage)} target="_blank" rel="noopener">{copy.moreLink}</a>.
       </p>
     </div>
     <div class="items">

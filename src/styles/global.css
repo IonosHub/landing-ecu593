@@ -116,24 +116,6 @@ a {
   font-variant-numeric: tabular-nums;
 }
 
-/* Page-turn reveal for paper documents (visas, fee sheet, form): the sheet swings in
-   from its binding edge. Content is visible by default; JS opts in only when motion is allowed. */
-.motion-ok [data-reveal] {
-  opacity: 0;
-  transform: perspective(1600px) rotateY(-24deg);
-  transform-origin: left center;
-  clip-path: inset(-3rem 100% -4rem -3rem);
-  transition:
-    opacity var(--dur-slow) var(--ease-out),
-    transform 1100ms var(--ease-out),
-    clip-path 1100ms var(--ease-out);
-}
-.motion-ok [data-reveal].is-in {
-  opacity: 1;
-  transform: var(--settled-transform, none);
-  clip-path: inset(-3rem -3rem -4rem -3rem);
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

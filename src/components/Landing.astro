@@ -1,0 +1,33 @@
+---
+/** The full landing, shared by every language route (src/pages/index.astro, src/pages/en/index.astro). */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from './sections/Nav.astro';
+import Hero from './sections/Hero.astro';
+import Programs from './sections/Programs.astro';
+import Method from './sections/Method.astro';
+import Modalities from './sections/Modalities.astro';
+import Endorsements from './sections/Endorsements.astro';
+import Testimonials from './sections/Testimonials.astro';
+import Pricing from './sections/Pricing.astro';
+import Faq from './sections/Faq.astro';
+import LeadForm from './sections/LeadForm.astro';
+import Footer from './sections/Footer.astro';
+import WhatsAppFab from './WhatsAppFab.astro';
+---
+
+<BaseLayout>
+  <Nav />
+  <main id="contenido">
+    <Hero />
+    <Programs />
+    <Method />
+    <Modalities />
+    <Endorsements />
+    <Testimonials />
+    <Pricing />
+    <Faq />
+    <LeadForm />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</BaseLayout>

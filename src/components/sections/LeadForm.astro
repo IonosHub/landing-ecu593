@@ -1,81 +1,94 @@
 ---
 import { site } from '../../config/site';
-import { programs } from '../../data/programs';
 import { modalities } from '../../data/modalities';
+import { programs } from '../../data/programs';
+import { useDictionary } from '../../i18n';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import Stamp from '../ui/Stamp.astro';
+
+const t = useDictionary(Astro.currentLocale);
+const copy = t.form;
 ---
 
 <section class="apply" aria-labelledby="solicitud">
   <div class="container layout">
     <div class="intro">
-      <h2 id="solicitud">Solicitud de inscripción</h2>
-      <p class="lead">Déjanos tus datos y te contactamos. Secretaría revisa tu solicitud y te escribe por WhatsApp para elegir grupo y horario.</p>
+      <h2 id="solicitud">{copy.title}</h2>
+      <p class="lead">{copy.lead}</p>
       <ol class="steps">
-        <li><span class="tabular">1</span> Envías la solicitud</li>
-        <li><span class="tabular">2</span> Te contactamos por WhatsApp</li>
-        <li><span class="tabular">3</span> Validamos documentos y pago</li>
-        <li><span class="tabular">4</span> Empiezas tu Nivel 01</li>
+        {copy.steps.map((step, index) => <li><span class="tabular">{index + 1}</span> {step}</li>)}
       </ol>
-      <p class="alt">¿Prefieres hablar ya?</p>
-      <Button href={buildWhatsAppUrl()} variant="whatsapp" external>Chatear por WhatsApp</Button>
+      <p class="alt">{copy.alt}</p>
+      <Button href={buildWhatsAppUrl(t.whatsapp.greeting)} variant="whatsapp" external>{copy.altCta}</Button>
     </div>
 
-    <form class="form" data-reveal data-lead-form data-api-url={site.apiUrl} data-whatsapp={site.whatsapp.number} data-state="idle" novalidate={false}>
+    <form
+      class="form"
+      data-anim="page-turn"
+      data-lead-form
+      data-api-url={site.apiUrl}
+      data-whatsapp={site.whatsapp.number}
+      data-messages={JSON.stringify(copy.client)}
+      data-state="idle"
+    >
       <div class="form-band">
-        <span>Formulario E-593</span>
-        <span>Ecu593 English</span>
+        <span>{copy.band[0]}</span>
+        <span>{copy.band[1]}</span>
       </div>
       <div class="grid">
         <label>
-          <span class="data-label">Nombres</span>
+          <span class="data-label">{copy.fields.firstName}</span>
           <input name="firstName" autocomplete="given-name" required maxlength="100" />
         </label>
         <label>
-          <span class="data-label">Apellidos</span>
+          <span class="data-label">{copy.fields.lastName}</span>
           <input name="lastName" autocomplete="family-name" required maxlength="100" />
         </label>
         <label>
-          <span class="data-label">Celular</span>
+          <span class="data-label">{copy.fields.phone}</span>
           <input name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="09XXXXXXXX" required pattern="09[0-9]{8}" maxlength="10" />
         </label>
         <label>
-          <span class="data-label">Correo (opcional)</span>
-          <input name="email" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" />
+          <span class="data-label">{copy.fields.email}</span>
+          <input name="email" type="email" autocomplete="email" placeholder={copy.fields.emailPlaceholder} />
         </label>
         <label>
-          <span class="data-label">Programa</span>
+          <span class="data-label">{copy.fields.program}</span>
           <select name="program" required>
-            <option value="" disabled selected>Elige un programa</option>
-            {programs.map((program) => <option value={program.name}>{program.name} · {program.audience}</option>)}
-            <option value="No estoy seguro">No estoy seguro</option>
+            <option value="" disabled selected>{copy.fields.programPlaceholder}</option>
+            {programs.map((program) => (
+              <option value={t.programs.items[program.id].name}>
+                {t.programs.items[program.id].name} · {t.programs.items[program.id].audience}
+              </option>
+            ))}
+            <option value={copy.fields.programUnsure}>{copy.fields.programUnsure}</option>
           </select>
         </label>
         <label>
-          <span class="data-label">Modalidad</span>
+          <span class="data-label">{copy.fields.modality}</span>
           <select name="modality" required>
-            {modalities.map((modality) => <option value={modality.name}>{modality.name}</option>)}
-            <option value="Cualquiera">Cualquiera</option>
+            {modalities.map((modality) => <option value={t.modalities.items[modality.id].name}>{t.modalities.items[modality.id].name}</option>)}
+            <option value={copy.fields.modalityAny}>{copy.fields.modalityAny}</option>
           </select>
         </label>
         <label class="wide">
-          <span class="data-label">Mensaje (opcional)</span>
-          <textarea name="message" rows="3" placeholder="Cuéntanos tu nivel actual, edad del estudiante o el horario que prefieres"></textarea>
+          <span class="data-label">{copy.fields.message}</span>
+          <textarea name="message" rows="3" placeholder={copy.fields.messagePlaceholder}></textarea>
         </label>
       </div>
       <div class="submit-row">
         <button type="submit" class="btn btn-primary">
-          <span>Enviar mi solicitud</span>
+          <span>{copy.submit}</span>
           <Icon name="arrow-right" size={18} class="btn-arrow" />
         </button>
         <p class="status" data-form-status role="status" aria-live="polite"></p>
       </div>
       <noscript>
-        <p class="status">Para enviar el formulario activa JavaScript, o <a href={buildWhatsAppUrl()}>escríbenos por WhatsApp</a>.</p>
+        <p class="status">{copy.noscript} <a href={buildWhatsAppUrl(t.whatsapp.greeting)}>{copy.noscriptLink}</a>.</p>
       </noscript>
-      <Stamp class="received" top="Solicitud" main="Recibida" bottom="Ecu593 English" ink="flame" rotate={-12} size="11rem" animate={false} />
+      <Stamp class="received" {...copy.stamp} ink="flame" rotate={-12} size="11rem" animate={false} />
     </form>
   </div>
 </section>
