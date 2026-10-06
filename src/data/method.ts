@@ -10,9 +10,12 @@ export const TOTAL_WEEKS = WEEKS_PER_LEVEL * LEVEL_COUNT;
  * Grading facts shown in src/i18n (method.evaluation) come from the Ecu593 PRD (pass mark 7.00,
  * max 25% absences) and the grades module (written/oral homework, midterm and final exam).
  */
+/** The regular course reaches B2 at the last level (client brief); earlier levels are not confirmed. */
+export const FINAL_CEFR = 'B2';
+
 export const levels: Level[] = Array.from({ length: LEVEL_COUNT }, (_, index) => ({
   number: index + 1,
   weekFrom: index * WEEKS_PER_LEVEL + 1,
   weekTo: (index + 1) * WEEKS_PER_LEVEL,
-  cefr: pending(`Nivel MCER del nivel ${index + 1}`),
+  cefr: index === LEVEL_COUNT - 1 ? FINAL_CEFR : pending(`Nivel MCER del nivel ${index + 1}`),
 }));

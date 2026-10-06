@@ -1,6 +1,5 @@
 ---
 import { site } from '../../config/site';
-import { modalities } from '../../data/modalities';
 import { programs } from '../../data/programs';
 import { useDictionary } from '../../i18n';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
@@ -28,7 +27,7 @@ const copy = t.form;
       class="form"
       data-anim="settle"
       data-lead-form
-      data-api-url={site.apiUrl}
+      data-webhook-url={site.leadWebhookUrl}
       data-whatsapp={site.whatsapp.number}
       data-messages={JSON.stringify(copy.client)}
       data-state="idle"
@@ -38,13 +37,9 @@ const copy = t.form;
         <span>{copy.band[1]}</span>
       </div>
       <div class="grid">
-        <label>
-          <span class="data-label">{copy.fields.firstName}</span>
-          <input name="firstName" autocomplete="given-name" required maxlength="100" />
-        </label>
-        <label>
-          <span class="data-label">{copy.fields.lastName}</span>
-          <input name="lastName" autocomplete="family-name" required maxlength="100" />
+        <label class="wide">
+          <span class="data-label">{copy.fields.name}</span>
+          <input name="name" autocomplete="name" required maxlength="200" />
         </label>
         <label>
           <span class="data-label">{copy.fields.phone}</span>
@@ -52,12 +47,12 @@ const copy = t.form;
         </label>
         <label>
           <span class="data-label">{copy.fields.email}</span>
-          <input name="email" type="email" autocomplete="email" placeholder={copy.fields.emailPlaceholder} />
+          <input name="email" type="email" autocomplete="email" placeholder={copy.fields.emailPlaceholder} required />
         </label>
-        <label>
+        <label class="wide">
           <span class="data-label">{copy.fields.program}</span>
-          <select name="program" required>
-            <option value="" disabled selected>{copy.fields.programPlaceholder}</option>
+          <select name="program">
+            <option value="" selected>{copy.fields.programPlaceholder}</option>
             {programs.map((program) => (
               <option value={t.programs.items[program.id].name}>
                 {t.programs.items[program.id].name} · {t.programs.items[program.id].audience}
@@ -65,17 +60,6 @@ const copy = t.form;
             ))}
             <option value={copy.fields.programUnsure}>{copy.fields.programUnsure}</option>
           </select>
-        </label>
-        <label>
-          <span class="data-label">{copy.fields.modality}</span>
-          <select name="modality" required>
-            {modalities.map((modality) => <option value={t.modalities.items[modality.id].name}>{t.modalities.items[modality.id].name}</option>)}
-            <option value={copy.fields.modalityAny}>{copy.fields.modalityAny}</option>
-          </select>
-        </label>
-        <label class="wide">
-          <span class="data-label">{copy.fields.message}</span>
-          <textarea name="message" rows="3" placeholder={copy.fields.messagePlaceholder}></textarea>
         </label>
       </div>
       <div class="submit-row">

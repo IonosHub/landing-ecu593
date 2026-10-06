@@ -1,5 +1,4 @@
 ---
-import { pricing } from '../../data/pricing';
 import { useDictionary } from '../../i18n';
 import { isPending, showPending } from '../../lib/pending';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
@@ -8,8 +7,7 @@ import Value from '../ui/Value.astro';
 
 const t = useDictionary(Astro.currentLocale);
 const copy = t.pricing;
-const known = pricing.filter((item) => !isPending(item.value));
-const rows = showPending ? pricing : known;
+const rows = copy.items.filter((item) => showPending || !isPending(item.value));
 ---
 
 <section class="pricing paper" aria-labelledby="valores">
@@ -24,7 +22,7 @@ const rows = showPending ? pricing : known;
           <dl class="rows">
             {rows.map((item) => (
               <div class="row">
-                <dt>{copy.labels[item.id]}</dt>
+                <dt>{item.label}</dt>
                 <span class="leader" aria-hidden="true" />
                 <dd class="tabular">
                   <Value value={item.value} />
@@ -34,7 +32,7 @@ const rows = showPending ? pricing : known;
           </dl>
         ) : null
       }
-      {known.length < pricing.length && <p class="note">{copy.fallback}</p>}
+      <p class="note">{copy.note}</p>
       <div class="actions">
         <Button href={buildWhatsAppUrl(copy.whatsappMessage)} variant="whatsapp" external>
           {copy.ctaWhatsapp}

@@ -1,51 +1,39 @@
 /**
- * Client for the Ecu593 system's public lead endpoint
- * (backend: src/modules/leads/leads.controller.ts → POST /v1/leads/register).
- * New leads land in the secretaries' pipeline.
+ * Sends a lead to the n8n webhook (site.leadWebhookUrl), which emails it to the school.
+ *
+ * The webhook does not answer CORS preflight, so the lead goes as a "simple" request:
+ * form-urlencoded body and `mode: 'no-cors'`. The response is opaque, so a resolved fetch
+ * counts as delivered and only a network error counts as a failure.
  */
 
 export interface LeadInput {
-  firstName: string;
-  lastName: string;
+  name: string;
+  email: string;
   phone: string;
-  email?: string;
-  program: string;
-  modality: string;
-  message?: string;
+  program?: string;
 }
 
 export type LeadResult =
   | { ok: true }
-  | { ok: false; reason: 'not-configured' | 'network' | 'rejected'; detail?: string };
+  | { ok: false; reason: 'not-configured' | 'network'; detail?: string };
 
-const toPayload = (input: LeadInput) => ({
-  firstName: input.firstName.trim(),
-  lastName: input.lastName.trim(),
-  phone: input.phone.trim(),
-  ...(input.email?.trim() ? { email: input.email.trim() } : {}),
-  source: 'web',
-  // The backend expects database ids for language/course; program and modality travel as notes.
-  notes: [
-    'Origen: landing',
-    `Programa: ${input.program}`,
-    `Modalidad: ${input.modality}`,
-    input.message?.trim() ? `Mensaje: ${input.message.trim()}` : '',
-  ]
-    .filter(Boolean)
-    .join(' · '),
-});
+const toPayload = (input: LeadInput, lang: string) =>
+  new URLSearchParams({
+    name: input.name.trim(),
+    email: input.email.trim(),
+    phone: input.phone.trim(),
+    program: input.program?.trim() ?? '',
+    source: 'landing',
+    lang,
+    page: location.href,
+  });
 
-export async function submitLead(apiUrl: string, input: LeadInput): Promise<LeadResult> {
-  if (!apiUrl) return { ok: false, reason: 'not-configured' };
+export async function submitLead(webhookUrl: string, input: LeadInput, lang: string): Promise<LeadResult> {
+  if (!webhookUrl) return { ok: false, reason: 'not-configured' };
 
   try {
-    const response = await fetch(`${apiUrl.replace(/\/$/, '')}/v1/leads/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(toPayload(input)),
-    });
-    if (response.ok) return { ok: true };
-    return { ok: false, reason: 'rejected', detail: await response.text() };
+    await fetch(webhookUrl, { method: 'POST', mode: 'no-cors', body: toPayload(input, lang) });
+    return { ok: true };
   } catch (error) {
     return { ok: false, reason: 'network', detail: String(error) };
   }

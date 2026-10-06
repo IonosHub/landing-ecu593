@@ -1,10 +1,7 @@
-import { pending, type Maybe } from '../lib/pending';
-import type { PriceId } from './types';
-
-/** Fee values (labels live in src/i18n). Replace pending() with the real value, e.g. '$45'. */
-export const pricing: { id: PriceId; value: Maybe<string> }[] = [
-  { id: 'enrollment', value: pending('Valor de la matrícula') },
-  { id: 'level', value: pending('Valor de cada nivel de 4 semanas') },
-  { id: 'payment', value: pending('Formas de pago aceptadas') },
-  { id: 'promotions', value: pending('Promociones o descuentos vigentes') },
-];
+/**
+ * Fee facts from the client brief (05-10-2026). Labels and wording live in src/i18n (pricing.items).
+ * The course is 12 months of classes plus 1 month for the certification exam.
+ */
+export const MONTHLY_FEE = 60;
+export const COURSE_MONTHS = 13;
+export const CERTIFICATION_MONTHS = 1;

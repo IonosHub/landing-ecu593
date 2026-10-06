@@ -1,8 +1,7 @@
 import type { Maybe } from '../lib/pending';
 
-export type ProgramId = 'kids' | 'teens' | 'adultos';
-export type ModalityId = 'presencial' | 'online';
-export type PriceId = 'enrollment' | 'level' | 'payment' | 'promotions';
+export type ProgramId = 'regular' | 'particulares' | 'conversacion' | 'corporativo';
+export type ModalityId = 'online';
 export type StampInk = 'flame' | 'sky' | 'violet' | 'navy';
 
 /** A photo slot. Without `src` it renders as an empty photo window describing the shot. */

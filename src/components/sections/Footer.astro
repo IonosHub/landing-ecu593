@@ -41,16 +41,6 @@ const year = new Date().getFullYear();
               {isPending(site.email) ? <Value value={site.email} /> : <a href={`mailto:${site.email}`}>{site.email}</a>}
             </li>
           )}
-          {(showPending || !isPending(site.address)) && (
-            <li>
-              <Icon name="pin" size={18} />
-              <span>
-                <Value value={site.address} />
-                {(showPending || (!isPending(site.address) && !isPending(site.city))) && ', '}
-                <Value value={site.city} />
-              </span>
-            </li>
-          )}
           {(showPending || !isPending(site.officeHours)) && (
             <li>
               <Icon name="clock" size={18} />

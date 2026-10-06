@@ -1,5 +1,5 @@
 import type { Maybe } from '../lib/pending';
-import type { ModalityId, PriceId, ProgramId } from '../data/types';
+import type { ModalityId, ProgramId } from '../data/types';
 
 interface StampText {
   top: string;
@@ -44,9 +44,9 @@ export interface Dictionary {
     title: string;
     lead: string;
     band: string;
-    labels: { audience: string; ages: string; modality: string };
+    labels: { audience: string; duration: string; modality: string };
     modalityValue: string;
-    agesFallback: string;
+    durationFallback: string;
     cta: (name: string) => string;
     stampTop: string;
     items: Record<
@@ -54,7 +54,7 @@ export interface Dictionary {
       {
         name: string;
         audience: string;
-        ages: Maybe<string>;
+        duration: Maybe<string>;
         pitch: string;
         focus: string[];
         imageAlt: string;
@@ -101,8 +101,8 @@ export interface Dictionary {
   pricing: {
     title: string;
     tag: string;
-    labels: Record<PriceId, string>;
-    fallback: string;
+    items: { label: string; value: Maybe<string> }[];
+    note: string;
     ctaWhatsapp: string;
     ctaForm: string;
     whatsappMessage: string;
@@ -122,18 +122,13 @@ export interface Dictionary {
     altCta: string;
     band: [string, string];
     fields: {
-      firstName: string;
-      lastName: string;
+      name: string;
       phone: string;
       email: string;
       emailPlaceholder: string;
       program: string;
       programPlaceholder: string;
       programUnsure: string;
-      modality: string;
-      modalityAny: string;
-      message: string;
-      messagePlaceholder: string;
     };
     submit: string;
     noscript: string;

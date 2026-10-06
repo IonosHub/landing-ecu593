@@ -11,8 +11,8 @@ import Value from '../ui/Value.astro';
 
 const t = useDictionary(Astro.currentLocale);
 const copy = t.programs;
-const tilts = [-0.8, 0.6, -0.4];
-const stampRotations = [14, -10, 8];
+const tilts = [-0.8, 0.6, -0.4, 0.5];
+const stampRotations = [14, -10, 8, -12];
 ---
 
 <section class="programs paper" aria-labelledby="programas">
@@ -42,9 +42,9 @@ const stampRotations = [14, -10, 8];
                       <dd>{item.audience}</dd>
                     </div>
                     <div>
-                      <dt class="data-label">{copy.labels.ages}</dt>
+                      <dt class="data-label">{copy.labels.duration}</dt>
                       <dd>
-                        <Value value={item.ages} fallback={copy.agesFallback} />
+                        <Value value={item.duration} fallback={copy.durationFallback} />
                       </dd>
                     </div>
                     <div>

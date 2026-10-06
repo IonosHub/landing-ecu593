@@ -5,7 +5,7 @@
  */
 import { site } from '../../config/site';
 import { programs } from '../../data/programs';
-import { TOTAL_WEEKS } from '../../data/method';
+import { COURSE_MONTHS } from '../../data/pricing';
 import { localeMeta, localePath, toLocale, useDictionary } from '../../i18n';
 import { isPending } from '../../lib/pending';
 
@@ -20,8 +20,6 @@ const websiteId = absolute('/#website');
 const known = <T,>(value: T) => (isPending(value) ? undefined : value);
 
 const sameAs = site.social.map((link) => known(link.url)).filter(Boolean);
-const address = known(site.address);
-const city = known(site.city);
 
 const organization = {
   '@type': 'EducationalOrganization',
@@ -44,10 +42,6 @@ const organization = {
     url: `https://wa.me/${site.whatsapp.number}`,
     availableLanguage: ['Spanish', 'English'],
   },
-  address:
-    address || city
-      ? { '@type': 'PostalAddress', streetAddress: address, addressLocality: city, addressCountry: 'EC' }
-      : undefined,
   sameAs: sameAs.length > 0 ? sameAs : undefined,
 };
 
@@ -61,12 +55,9 @@ const courses = programs.map((program) => {
     provider: { '@id': orgId },
     inLanguage: 'en',
     teaches: item.focus,
-    timeRequired: `P${TOTAL_WEEKS}W`,
+    timeRequired: program.id === 'regular' ? `P${COURSE_MONTHS}M` : undefined,
     audience: { '@type': 'EducationalAudience', audienceType: item.audience },
-    hasCourseInstance: [
-      { '@type': 'CourseInstance', courseMode: 'Onsite' },
-      { '@type': 'CourseInstance', courseMode: 'Online' },
-    ],
+    hasCourseInstance: [{ '@type': 'CourseInstance', courseMode: 'Online' }],
   };
 });
 

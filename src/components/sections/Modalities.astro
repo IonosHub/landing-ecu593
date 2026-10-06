@@ -67,6 +67,12 @@ const copy = t.modalities;
   .entry:nth-child(2) {
     margin-top: var(--space-8);
   }
+  .entry:only-child {
+    grid-column: 1 / -1;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+  }
   .entry {
     position: relative;
     display: grid;
@@ -107,6 +113,9 @@ const copy = t.modalities;
     }
     .entry:nth-child(2) {
       margin-top: var(--space-4);
+    }
+    .entry:only-child {
+      grid-template-columns: 1fr;
     }
   }
 </style>

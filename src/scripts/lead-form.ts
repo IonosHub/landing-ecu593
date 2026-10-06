@@ -9,8 +9,7 @@ const fill = (template: string, values: Record<string, string>) =>
 
 const vars = (lead: LeadInput): Record<string, string> => ({
   ...lead,
-  email: lead.email ?? '',
-  message: lead.message ?? '',
+  program: lead.program ?? '',
 });
 
 /** Ecuadorian mobile numbers: 09XXXXXXXX. */
@@ -19,7 +18,7 @@ const PHONE_PATTERN = /^09\d{8}$/;
 const form = document.querySelector<HTMLFormElement>('[data-lead-form]');
 
 if (form) {
-  const apiUrl = form.dataset.apiUrl ?? '';
+  const webhookUrl = form.dataset.webhookUrl ?? '';
   const whatsappNumber = form.dataset.whatsapp ?? '';
   const messages = JSON.parse(form.dataset.messages ?? '{}') as Messages;
   const status = form.querySelector<HTMLElement>('[data-form-status]')!;
@@ -43,13 +42,10 @@ if (form) {
     const data = new FormData(form);
     const value = (key: string) => String(data.get(key) ?? '');
     return {
-      firstName: value('firstName'),
-      lastName: value('lastName'),
-      phone: value('phone'),
+      name: value('name'),
       email: value('email'),
+      phone: value('phone'),
       program: value('program'),
-      modality: value('modality'),
-      message: value('message'),
     };
   };
 
@@ -76,7 +72,7 @@ if (form) {
 
     const lead = read();
     setState('sending', messages.sending);
-    const result = await submitLead(apiUrl, lead);
+    const result = await submitLead(webhookUrl, lead, document.documentElement.lang);
 
     if (result.ok) {
       setState(
