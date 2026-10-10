@@ -14,14 +14,15 @@ export const site = {
   name: 'Ecu593 English',
   legalName: 'Ecu593 English School',
   slogan: ['Learn', 'Grow', 'Achieve'] as const,
+  // WEBHOOK_URL is read at build time and rendered into the form; the browser POSTs to it without auth.
   leadWebhookUrl:
-    (import.meta.env.PUBLIC_LEAD_WEBHOOK_URL as string | undefined) ??
+    (import.meta.env.WEBHOOK_URL as string | undefined) ||
     'https://n8n.ionoshub.net/webhook/correos-ecu593',
   logo: { src: '/imgs/logo_oficial.jpg', width: 557, height: 485 },
   ogImage: { src: '/og.png', width: 1200, height: 630 },
 
   whatsapp: {
-    number: (import.meta.env.PUBLIC_WHATSAPP_NUMBER as string | undefined) ?? '593963660675',
+    number: (import.meta.env.PUBLIC_WHATSAPP_NUMBER as string | undefined) || '593963660675',
     display: '096 366 0675',
   },
 
