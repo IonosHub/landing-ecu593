@@ -36,7 +36,7 @@ public/
 - **Agregar un idioma:** súmalo a `src/i18n/config.ts`, crea su diccionario y su página en `src/pages/<código>/index.astro`, y agrégalo a `i18n.locales` en `astro.config.mjs`.
 - **Datos que faltan:** se escriben como `pending('qué falta')`. La lista completa está en [PENDIENTES.md](PENDIENTES.md).
 - **Fotos:** agrega `photo: '/imgs/archivo.jpg'` a cada programa o modalidad en `src/data`. Sin foto se muestra una ventana vacía con la descripción de la foto que va ahí.
-- **Formulario:** pide nombre, correo y celular (y el programa, opcional) y los envía al webhook de n8n `PUBLIC_LEAD_WEBHOOK_URL` (por defecto `https://n8n.ionoshub.net/webhook/correos-ecu593`), que avisa por correo a ecu593english@gmail.com. Si hay un error de red, ofrece enviar los datos por WhatsApp.
+- **Formulario:** pide nombre, correo y celular (y el programa, opcional) y los envía al webhook de n8n `WEBHOOK_URL` (POST sin auth) (por defecto `https://n8n.ionoshub.net/webhook/correos-ecu593`), que avisa por correo a ecu593english@gmail.com. Si hay un error de red, ofrece enviar los datos por WhatsApp.
 - **Animaciones (GSAP):** apertura del pasaporte, giros de página, golpes de sello y el contador de niveles, todo en `src/scripts/motion.ts`. Solo corren si el usuario no pidió movimiento reducido; sin JavaScript todo el contenido sigue visible.
 - **SEO / AEO:** título y descripción por idioma, `canonical`, `hreflang` (es-EC, en, x-default), Open Graph y Twitter con `public/og.png`, JSON-LD (`EducationalOrganization`, `Course` ×4, `FAQPage`), `sitemap-index.xml`, `robots.txt` y `llms.txt` (resumen en texto plano para asistentes de IA). Las URLs absolutas y el sitemap necesitan `PUBLIC_SITE_URL`. Los datos pendientes nunca se publican en el JSON-LD.
 
@@ -50,7 +50,7 @@ El proyecto ya está configurado (`vercel.json`): Astro estático, `npm ci`, `np
 
    | Variable | Valor | Obligatoria |
    |---|---|---|
-   | `PUBLIC_LEAD_WEBHOOK_URL` | Webhook de n8n del formulario | No (ya tiene valor por defecto) |
+   | `WEBHOOK_URL` | Webhook de n8n del formulario | No (ya tiene valor por defecto) |
    | `PUBLIC_SITE_URL` | Dominio final, ej. `https://ecu593.com` | Recomendada (si falta, usa el dominio de producción de Vercel) |
    | `PUBLIC_WHATSAPP_NUMBER` | `593963660675` | No (ya es el valor por defecto) |
    | `PUBLIC_SHOW_PENDING` | `true` solo en *Preview* si quieres revisar los "Dato pendiente" | No |
